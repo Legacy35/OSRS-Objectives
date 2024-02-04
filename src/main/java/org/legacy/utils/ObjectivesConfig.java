@@ -1,17 +1,18 @@
-package com.example;
+package org.legacy.utils;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("example")
-public interface ExampleConfig extends Config
+public interface ObjectivesConfig extends Config
 {
 	@ConfigItem(
 		keyName = "greeting",
-		name = "Welcome Greeting",
+		name = "Welcomes Greeting",
 		description = "The message to show to the user when they login"
 	)
+
 	default String greeting()
 	{
 		return "Hello";
