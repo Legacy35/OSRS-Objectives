@@ -1,4 +1,4 @@
-package org.legacy.objectives;
+package org.legacy.utils;
 
 public enum ObjectiveType {
     QUESTING,

@@ -12,41 +12,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class QuestModel {
-    Quest quest;
     @Getter
-    @Setter
-    private String name;
-
+    private final Quest quest;
     @Getter
-    @Setter
-    private String wikiUrl;
-
+    private final String name;
     @Getter
-    @Setter
-    private int index;
-
+    private final String wikiUrl;
     @Getter
-    @Setter
+    private final int index;
+    @Getter
     private QuestState questState;
+    @Getter
+    private final String formattedQuestName;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
 
     public QuestModel(Quest quest, Client client){
         this.quest = quest;
         name= quest.getName();
-        wikiUrl = getUrlForQuest(name);
+        formattedQuestName = name.replaceAll("[^a-zA-Z0-9 ]", "").toUpperCase().replace(' ', '_');
+        wikiUrl = getUrlForQuest();
         index = quest.getId();
         questState=quest.getState(client);
     }
-    private static String getUrlForQuest(String questName) {
-        // Remove non-alphanumeric characters and change to uppercase
-        String formattedQuestName = questName.replaceAll("[^a-zA-Z0-9 ]", "").toUpperCase().replace(' ', '_');
+    private String getUrlForQuest() {
         try {
-            // Get the corresponding enum value
             ExternalQuestResources quest = ExternalQuestResources.valueOf(formattedQuestName);
-            // Retrieve and return the URL associated with the enum value
             return quest.getUrl();
         } catch (IllegalArgumentException e) {
-            // Handle case where the quest name does not match any enum value
             log.error("Quest " + formattedQuestName + " not found.");
             return null;
         }

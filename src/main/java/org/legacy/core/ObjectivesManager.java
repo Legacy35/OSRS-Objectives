@@ -1,8 +1,7 @@
 package org.legacy.core;
 
-import org.legacy.data.BankData;
 import org.legacy.data.ObjectiveData;
-import org.legacy.objectives.Objective;
+import org.legacy.objectives.models.Objective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

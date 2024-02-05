@@ -4,12 +4,11 @@ import net.runelite.api.Client;
 import net.runelite.api.Varbits;
 import org.legacy.core.ObjectivesPlugin;
 import org.legacy.models.AchievementModel;
-import org.legacy.models.QuestModel;
 import org.legacy.utils.Difficulty;
 import org.legacy.utils.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import net.runelite.api.annotations.Varbit;
+
 import javax.inject.Inject;
 import java.util.ArrayList;
 

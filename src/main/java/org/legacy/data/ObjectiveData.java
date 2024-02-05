@@ -2,9 +2,9 @@ package org.legacy.data;
 
 import lombok.Getter;
 import net.runelite.api.Skill;
-import org.legacy.models.SkillModel;
-import org.legacy.objectives.Objective;
-import org.legacy.objectives.ObjectiveType;
+import org.legacy.objectives.models.Objective;
+import org.legacy.objectives.models.SkillObjective;
+import org.legacy.utils.ObjectiveType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,24 +44,21 @@ public class ObjectiveData extends Data
         skillingObjectives.clear();
         for(Skill skill: Skill.values()){
             if(SkillData.getSkill(skill)!=null) {
-                addAllSkillObjectives(skill, SkillData.getSkill(skill).getLvl());
+                addAllSkillObjectives(skill);
             }
         }
     }
-    private void addAllSkillObjectives(Skill skill, int curLvl) {
-        Objective prevObjective = null;
-        for(int i = curLvl+1; i<99;i++ ){
-            Objective goal= new Objective("Get to Lvl " + i + " in "+skill.getName(),"To complete the objective level up the corresponding skill to set goal",100-curLvl,"SKILL_"+skill.getName().toUpperCase()+"_"+i);
-            goal.addType(ObjectiveType.SKILLING);
-            goal.addRequirememnt(prevObjective);
+    private void addAllSkillObjectives(Skill skill) {
+        for(int i = 2; i<99;i++ ){
+            Objective goal= new SkillObjective(skill,i);
             skillingObjectives.add(goal);
-            prevObjective=goal;
         }
     }
     private void addQuestObjectives() {
 
     }
     private void addPlayerAchievementObjectives() {
+
 
     }
     public String toStringSkillingObjectives(){

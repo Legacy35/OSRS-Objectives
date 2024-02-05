@@ -1,7 +1,6 @@
 package org.legacy.models;
 
 import net.runelite.api.Client;
-import net.runelite.api.Varbits;
 import org.legacy.utils.Difficulty;
 import org.legacy.utils.Location;
 
