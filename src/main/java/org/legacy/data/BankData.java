@@ -1,71 +1,87 @@
 package org.legacy.data;
 
 import lombok.Getter;
-import net.runelite.api.Client;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
+import lombok.Setter;
+import net.runelite.api.*;
 import net.runelite.client.game.ItemManager;
+import org.legacy.core.ObjectivesConfig;
+import org.legacy.core.ObjectivesPlugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.legacy.data.Data;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-
-public class BankData {
+@Singleton
+public class BankData extends Data{
     @Inject
     private ItemManager itemManager;
     @Inject
     private Client client;
-    @Getter
+    @Inject
+    private ObjectivesConfig config;
+    @Getter @Setter
     private long totalValue;
+    @Getter
     private long bankValue;
+    @Getter
     private long equipmentValue;
+    @Getter
     private long InventoryValue;
+    @Getter
     private long seedVault;
-    private long group_storage;
-    private long group_storage_inv;
-
+    @Getter
+    private long groupStorage;
+    private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     public BankData() {
-        this.updateValues();
     }
-    private void resetValues(){
+    public void resetValues(){
         totalValue = 0;
-        bankValue = 0;
-        equipmentValue = 0;
-        InventoryValue = 0;
-        seedVault = 0;
-        group_storage = 0;
-        group_storage_inv = 0;
+        bankValue = config.PlayerBankValue();
+        equipmentValue = config.PlayerEquipmentValue();
+        InventoryValue = config.PlayerInventoryValue();
+        seedVault = config.PlayerSeedVaultValue();
+        groupStorage = config.PlayerGroupStorageValue();
     }
-    private void updateValues() {
+    public void updateValues() {
         resetValues();
-        bankValue += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.BANK));
-        equipmentValue += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.EQUIPMENT));
-        InventoryValue += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.INVENTORY));
-        seedVault += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.SEED_VAULT));
-        group_storage += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.GROUP_STORAGE));
-        group_storage_inv += this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.GROUP_STORAGE_INV));
-        totalValue = bankValue + equipmentValue + InventoryValue + seedVault + group_storage + group_storage_inv;
+        log.trace("Updating Player Value");
+        bankValue = this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.BANK), bankValue);
+        equipmentValue = this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.EQUIPMENT), equipmentValue);
+        InventoryValue = this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.INVENTORY), InventoryValue);
+        seedVault = this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.SEED_VAULT), seedVault);
+        groupStorage = this.calculateTotalValueOfItems(this.getItemsFromAStorage(InventoryID.GROUP_STORAGE), groupStorage);
+        totalValue = bankValue + equipmentValue + InventoryValue + seedVault + groupStorage;
+        log.trace("Bank Value Value: "+bankValue+" , Equipment Value: "+equipmentValue+" , Inventory Value: "+InventoryValue+" , Seed Value: "+seedVault+ " , Group Storage Value: "+groupStorage + " , Total Value: "+totalValue);
+        config.PlayerBankValue(bankValue);
+        config.PlayerEquipmentValue(equipmentValue);
+        config.PlayerInventoryValue(InventoryValue);
+        config.PlayerSeedVaultValue(seedVault);
+        config.PlayerGroupStorageValue(groupStorage);
     }
-    private Item[] getItemsFromAStorage(InventoryID inventory) {
+    private Item[] getItemsFromAStorage(InventoryID inventory){
         ItemContainer itemContainer = this.client.getItemContainer(inventory);
+        if (itemContainer == null){
+            return null;
+        }
+        log.trace("Checking Inventory: "+inventory);
         return itemContainer == null ? null : itemContainer.getItems();
     }
-    long calculateTotalValueOfItems(@Nullable Item[] items) {
+    long calculateTotalValueOfItems(@Nullable Item[] items, long prevValue) {
         if (items == null) {
-            return 0;
+            return prevValue;
         } else {
             long value = 0L;
 
-            for(int i = 0; i < items.length; ++i) {
-                Item item = items[i];
+            for (Item item : items) {
                 int qty = item.getQuantity();
                 int id = item.getId();
                 if (id > 0 && qty != 0) {
                     value += (long)this.itemManager.getItemPrice(id) * (long)qty;
                 }
             }
-
             return value;
         }
     }
@@ -81,12 +97,7 @@ public class BankData {
         }
     }
 
-    public int hashCode() {
-        return 59 + (int)(this.getTotalValue() >>> 32 ^ this.getTotalValue());
-    }
-
     public String toString() {
-        long var10000 = this.getTotalValue();
-        return "BankData(gePrice=" + var10000 + ")";
+        return "BankData(gePrice=" + this.getTotalValue() + ")";
     }
 }

@@ -2,7 +2,7 @@ package org.legacy;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
-import org.legacy.utils.ObjectivesPlugin;
+import org.legacy.core.ObjectivesPlugin;
 
 public class PluginLauncher
 {
