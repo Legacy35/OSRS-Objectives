@@ -32,6 +32,7 @@ public class SkillData extends Data{
                 return skill;
             }
         }
+        log.error("SkillData.getSkill() got "+targetSkill);
         return null;
     }
     @Override

@@ -1,0 +1,20 @@
+package org.legacy.utils;
+
+public enum ObjectiveTags {
+    QUESTING,
+    SKILLING,
+    COMBAT_SKILLING,
+    GATHERING_SKILLING,
+    PRODUCTION_SKILLING,
+    ACHIEVEMENTS,
+    COMABT_ACHIEVEMENTS,
+    DIARY_ACHIEVEMENTS,
+    PROFIT,
+    PVM,
+    BOSSING,
+    REOCCURING_TASK,
+    COLLECTION_LOG,
+    WILDERNESS,
+
+
+}

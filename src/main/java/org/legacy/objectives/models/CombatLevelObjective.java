@@ -2,24 +2,22 @@ package org.legacy.objectives.models;
 
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
-import net.runelite.api.VarPlayer;
-import org.legacy.objectives.SkillObjectives;
-import org.legacy.utils.ObjectiveType;
+import org.legacy.utils.ObjectiveTags;
 
 public class CombatLevelObjective extends Objective {
     int cmbLvl;
     public CombatLevelObjective(int cmbLvl) {
-        super("Combat Level", "Combat Level", 0, "CMB_Lvl-"+cmbLvl);
+        super("Combat Level", "Combat Level", 0, "CMB-"+cmbLvl);
         this.cmbLvl= cmbLvl;
         setHiddenObjective(true);
-        addType(ObjectiveType.SKILLING);
-        addRequirememnt("SKILL_"+Skill.ATTACK.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.DEFENCE.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.HITPOINTS.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.STRENGTH.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.MAGIC.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.RANGED.getName().toUpperCase()+"_"+(cmbLvl*21/28));
-        addRequirememnt("SKILL_"+Skill.PRAYER.getName().toUpperCase()+"_"+(cmbLvl*21/28));
+        addTag(ObjectiveTags.SKILLING);
+        addRequirement("SKILL-"+Skill.ATTACK.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.DEFENCE.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.HITPOINTS.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.STRENGTH.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.MAGIC.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.RANGED.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addRequirement("SKILL-"+Skill.PRAYER.getName().toUpperCase()+"-"+(cmbLvl*21/28));
     }
     @Override
     public boolean updateCompletedValue(Client client) {

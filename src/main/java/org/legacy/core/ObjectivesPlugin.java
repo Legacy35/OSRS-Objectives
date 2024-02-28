@@ -2,20 +2,17 @@ package org.legacy.core;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
-
 import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import org.legacy.data.AchievementData;
-import org.legacy.data.BankData;
 
-import org.legacy.data.QuestData;
-import org.legacy.data.SkillData;
+import org.legacy.devTools.VarInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,21 +24,22 @@ public class ObjectivesPlugin extends Plugin
 {
 	private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
 	private int gameTick=998;
+	private boolean once = false;
 	@Inject
 	private Client client;
 	@Inject
+	private ClientThread clientThread;
+	@Inject
+	private EventBus eventBus;
+	@Inject
 	private ObjectivesConfig config;
 	@Inject
-	private BankData playerBankValue;
+	private DataManager playerDataManager;
 	@Inject
-	private SkillData playerSkillData;
-	@Inject
-	private QuestData playerQuestData;
-	@Inject
-	private AchievementData playerAchievementData;
-	@Inject
-	private ObjectivesManager objectives;
+	private ObjectivesManager objectivesManager;
 
+	@Inject
+	VarInspector test;
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -55,25 +53,37 @@ public class ObjectivesPlugin extends Plugin
 	}
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event) {
-		playerBankValue.updateValues();
+		//playerBankValue.updateValues();
+		if(once) {
+			log.info("WHYTHOUGH");
+			test();
+		}
 	}
 	@Subscribe
 	public void onGameTick(GameTick J){
+
+		//32
 		gameTick++;
-		if(gameTick<30){
+		if(gameTick<1010){
 			return;
 		}
-		log.info("Updating All Data");
-		playerBankValue.updateValues();
-		playerSkillData.updateValues();
-		playerQuestData.updateValues();
-		playerAchievementData.updateValues();
-		log.info(""+playerBankValue);
-		log.info(""+ playerSkillData);
-		log.info(""+ playerQuestData);
-		log.info(""+ playerAchievementData);
-		objectives.getRecomendedObjective();
 		gameTick=0;
+		VarInspector test = new VarInspector(client,clientThread,eventBus);
+		if(!once) {
+			log.info("Initializing values");
+			once=true;
+			playerDataManager.updateValues();
+			objectivesManager.initialize();
+			test.open();
+		}
+	}
+	public void test(){
+		log.info("Updating All Data");
+		playerDataManager.updateValues();
+		log.info("Updating All Objectives");
+		objectivesManager.updateAllCompletionStatuses();
+		objectivesManager.printRecommendedSkillingObjectives();
+		objectivesManager.printRecommendedQuestObjectives();
 	}
 	@Provides
 	ObjectivesConfig getConfig(ConfigManager configManager) {
