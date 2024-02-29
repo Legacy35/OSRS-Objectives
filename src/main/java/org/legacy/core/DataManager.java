@@ -1,5 +1,6 @@
 package org.legacy.core;
 
+import lombok.Getter;
 import org.legacy.data.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,21 @@ public class DataManager {
     private AchievementData playerAchievementData;
     @Inject
     private CombatAchievementData playerCombatAchievementData;
+    @Getter
+    private boolean isIntialized;
+    @Getter
+    private boolean intializationStarted;
+    @Getter
+    private int intializationState;
     public DataManager(){
-
+        intializationStarted=false;
+        isIntialized=false;
+        intializationState=0;
     }
     public void initialize(){
         updateValues();
+        intializationStarted=true;
+        isIntialized=true;
     }
     public void updateValues(){
         playerBankValue.updateValues();

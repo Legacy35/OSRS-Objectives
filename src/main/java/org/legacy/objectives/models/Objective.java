@@ -111,9 +111,9 @@ public abstract class Objective implements Comparable<Objective> {
     public String toString() {
         return "Objective{" +
                 ", ID='" + ID + '\'' +
-               //", completionStatus=" + objectiveCompleted +
-                ", requirements=" + requirements +
-                ", requiredBy=" + requiredBy +
+               ", completionStatus=" + objectiveCompleted +
+                //", requirements=" + requirements +
+                //", requiredBy=" + requiredBy +
                 ", basePriorityLevel=" + basePriorityLevel +
                 ", priorityLevel=" + priorityLevel +
                 '}';

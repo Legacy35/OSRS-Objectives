@@ -20,7 +20,7 @@ public class SkillObjective extends Objective{
         this.targetLevel=targetLevel;
         addTag(ObjectiveTags.SKILLING);
         if (targetLevel==99){
-            setPriorityLevel(1);
+            setBasePriorityLevel(1);
         }
         this.skill=skill;
         if(targetLevel>2) {

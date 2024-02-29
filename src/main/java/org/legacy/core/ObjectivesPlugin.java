@@ -54,27 +54,35 @@ public class ObjectivesPlugin extends Plugin
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event) {
 		//playerBankValue.updateValues();
-		if(once) {
-			log.info("WHYTHOUGH");
+		if(objectivesManager.isIntialized()) {
 			test();
 		}
 	}
 	@Subscribe
 	public void onGameTick(GameTick J){
-
-		//32
-		gameTick++;
-		if(gameTick<1010){
-			return;
+		if(!playerDataManager.isIntializationStarted()) {
+			playerDataManager.initialize();
+			playerDataManager.printData();
 		}
-		gameTick=0;
-		VarInspector test = new VarInspector(client,clientThread,eventBus);
-		if(!once) {
-			log.info("Initializing values");
-			once=true;
-			playerDataManager.updateValues();
+		else if(!playerDataManager.isIntialized()){
+			//TODO: Add stuff here if needed
+		}
+		else if(!objectivesManager.isIntializationStarted()) {
 			objectivesManager.initialize();
-			test.open();
+		}
+		else if(!objectivesManager.isIntialized()) {
+			objectivesManager.processInitializedValues();
+		}else if(gameTick>10){
+			/*playerDataManager.updateValues();
+			objectivesManager.updateAllCompletionStatuses(); //while guthix sleeps was not found*/
+			gameTick=0;
+		}
+		gameTick++;
+
+		if(!once) {
+			//VarInspector test = new VarInspector(client,clientThread,eventBus);
+			once=true;
+			//test.open();
 		}
 	}
 	public void test(){

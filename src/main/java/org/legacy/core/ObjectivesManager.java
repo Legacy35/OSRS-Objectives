@@ -1,5 +1,6 @@
 package org.legacy.core;
 
+import lombok.Getter;
 import net.runelite.api.Client;
 import org.legacy.objectives.QuestObjectives;
 import org.legacy.objectives.SkillObjectives;
@@ -24,37 +25,85 @@ public class ObjectivesManager {
     private SkillObjectives skillObjectives;
     @Inject
     private QuestObjectives questObjectives;
+    @Getter
+    private boolean isIntialized;
+    @Getter
+    private boolean intializationStarted;
+    @Getter
+    private int intializationState;
 
     private static final int objectiveListCount =4;
     // 0-> Skills , 1->Cmb Lvl, 2-> Quest, 3-> Quest Point
     private static final ArrayList<Objective>[] Objectives = new ArrayList[objectiveListCount+1];
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     public ObjectivesManager(){
+        intializationStarted=false;
+        isIntialized=false;
+        intializationState=0;
     }
     public void initialize(){
         log.info("----Initializing Objectives----");
         skillObjectives.initialize();
         questObjectives.initialize();
-        log.info("----Generating Objectives----");
-        generateObjectives();
-        log.info("----Assigning Required By Values for Objectives----");
-        assignRequiredByValues();
-        log.info("----Combining Objectives Lists----");
-        combineObjectivesList();
-        log.info("----Sorting Objectives List by amount of things that require it----");
-        sortByRequiredByCount();
-        log.info("----Topologically sorting combined objectives Lists----");
-        Objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(Objectives[objectiveListCount]);
-        log.info("----Assigning Priority Levels to Objectives----");
-        prioritizeObjectives();
-        log.info("----Updating Completion Statuses----");
-        updateAllCompletionStatuses();
-        log.info("----Delete Completed Objectives----");
-        //removeCompletedTasks();
-        removeHiddenTasks();
-        remove0PriorityTasks();
-        log.info("----Sort Objectives by Priority----");
-        sortTasksListByPriority();
+        intializationState=0;
+        isIntialized=false;
+        intializationStarted=true;
+        Objectives[objectiveListCount]= new ArrayList<Objective>();
+    }
+    public void processInitializedValues(){
+        if(isIntialized){
+            return;
+        }
+        switch(intializationState) {
+            case (0):
+                log.info("----Generating Objectives----");
+                generateObjectives();//medium O(n)
+                break;
+            case (1):
+                log.info("----Assigning Required By Values for Objectives----");
+                assignRequiredByValues();////medium o(n)
+                break;
+            case (2):
+                log.info("----Updating Completion Statuses----");
+                updateAllCompletionStatuses();//medium-Light  o(n)
+                log.info("----Combining Objectives Lists----");
+                combineObjectivesList();//Light o(1)
+                break;
+            case (3):
+                log.info("----Removing Completed Objectives----");
+               // removeCompletedObjectives();//Light O(n)
+                log.info("----Sorting Objectives List by amount of things that require it----");
+                sortByRequiredByCount();//medium-Light o(nlog(N)) //This is so that when we topological sort we start at the head of every relationship tree
+                break;
+            case (5):
+                log.info("----Topologically sorting combined objectives Lists----");
+                Objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(Objectives[objectiveListCount]); //Heavy approx O(N)
+                break;
+            case (6):
+                log.info("----Assigning Priority Levels to Objectives----");
+                prioritizeObjectives(); //Medium-Light //
+                break;
+            case (7):
+
+                break;
+            case (8):
+                log.info("----Delete Unnecessary/Hidden Objectives----");
+                removeHiddenObjectives(); //light
+                remove0PriorityObjectives();//light
+                break;
+            case (9):
+                log.info("----Sort Objectives by Priority----");
+                sortObjectivesListByPriority(); //Medium-Light
+                isIntialized=true;
+                break;
+            case (10):
+
+                break;
+            case (11):
+
+                break;
+        }
+        intializationState++;
     }
     private void generateObjectives(){
         skillObjectives.generateObjectives();
@@ -83,7 +132,7 @@ public class ObjectivesManager {
         for (String requirementString : objective.getRequirements()) {
             Objective requirement = getObjectiveFromID(requirementString);
             assert requirement != null;
-            if (!requirement.isHasBeenSorted()) {
+            if (!requirement.isHasBeenSorted() && !requirement.getObjectiveCompleted()) {
                 dfs(requirement, result);
             }
         }
@@ -126,12 +175,11 @@ public class ObjectivesManager {
 
     //Go through all the objectives and trickle down the priority to their subsequent objectives
     private void prioritizeObjectives (){
-        ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
-        for(int i = objectivesList.size()-1; i>=0;i--){
-            for(String requirement: objectivesList.get(i).getRequirements()){
-                ObjectivesManager.getObjectiveFromID(requirement).addToPriority(objectivesList.get(i).getPriorityLevel());
+        for(int i = Objectives[objectiveListCount].size()-1; i>=0;i--){
+            for(String requirement: Objectives[objectiveListCount].get(i).getRequirements()){
+                ObjectivesManager.getObjectiveFromID(requirement).addToPriority(Objectives[objectiveListCount].get(i).getPriorityLevel());
             }
-            objectivesList.get(i).addToPriority( objectivesList.get(i).getSelfContainedPriorityLevel());
+            Objectives[objectiveListCount].get(i).addToPriority( Objectives[objectiveListCount].get(i).getSelfContainedPriorityLevel());
         }
         applyPriorityRatios();
     }
@@ -140,16 +188,15 @@ public class ObjectivesManager {
     private void applyPriorityRatios() {
     }
 
-    private void removeCompletedTasks(){
-        ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
-        for(int i = 0; i < objectivesList.size();i++) {
-            if(objectivesList.get(i).getObjectiveCompleted()){
-                objectivesList.remove(i);
+    private void removeCompletedObjectives(){
+        for(int i = 0; i < Objectives[objectiveListCount].size();i++) {
+            if(Objectives[objectiveListCount].get(i).getObjectiveCompleted()){
+                Objectives[objectiveListCount].remove(i);
                 i--;
             }
         }
     }
-    private void removeHiddenTasks(){
+    private void removeHiddenObjectives(){
         ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
         for(int i = 0; i < objectivesList.size();i++) {
             if(objectivesList.get(i).isHiddenObjective()){
@@ -158,7 +205,7 @@ public class ObjectivesManager {
             }
         }
     }
-    private void remove0PriorityTasks(){
+    private void remove0PriorityObjectives(){
         ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
         for(int i = 0; i < objectivesList.size();i++) {
             if(objectivesList.get(i).getPriorityLevel()==0){
@@ -172,7 +219,7 @@ public class ObjectivesManager {
         Objectives[objectiveListCount].sort(Comparator.comparingInt(obj -> obj.getRequiredBy().size()));
 
     }
-    private void sortTasksListByPriority(){
+    private void sortObjectivesListByPriority(){
         Collections.sort(Objectives[objectiveListCount]);
     }
 
