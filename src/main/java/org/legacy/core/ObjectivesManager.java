@@ -108,8 +108,6 @@ public class ObjectivesManager implements Runnable{
         recurringObjectives.generateRecurringObjectives();
         Objectives[14]= clogObjectives.clogObjectivesList; // ???
          */
-         */
-         */
         /**/
     }
     //organizes Objectives in the CombinedObjectiveList to be topological sorted by requirements
