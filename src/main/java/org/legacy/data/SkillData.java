@@ -18,6 +18,7 @@ public class SkillData extends Data{
     private Client client;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     private static ArrayList<SkillModel> playerSkills = new ArrayList<SkillModel>();
+    public static int playerCmbLvl;
     public SkillData(){
     }
     public void updateValues() {
@@ -25,6 +26,7 @@ public class SkillData extends Data{
         for(Skill skill :Skill.values()){
             this.playerSkills.add(new SkillModel(skill,client));
         }
+        playerCmbLvl =client.getLocalPlayer().getCombatLevel();
     }
     public static SkillModel getSkill(Skill targetSkill){
         for (SkillModel skill :playerSkills){

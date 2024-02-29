@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class QuestModel {
     @Getter
-    private final Quest quest;
+    private Quest quest;
     @Getter
     private final String name;
     @Getter
@@ -26,13 +26,15 @@ public class QuestModel {
     private final String formattedQuestName;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
 
-    public QuestModel(Quest quest, Client client){
+    public QuestModel(Quest quest){
         this.quest = quest;
         name= quest.getName();
         formattedQuestName = name.replaceAll("[^a-zA-Z0-9 ]", "").toUpperCase().replace(' ', '_');
         wikiUrl = getUrlForQuest();
         index = quest.getId();
-        questState=quest.getState(client);
+    }
+    public void updateQuestState (Client client){
+        questState= quest.getState(client);
     }
     private String getUrlForQuest() {
         try {

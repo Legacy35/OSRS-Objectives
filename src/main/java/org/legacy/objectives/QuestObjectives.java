@@ -38,89 +38,89 @@ public class QuestObjectives {
     }
     public void generateQuestObjectives(){
         int totalOptimalQuestSteps=200;
-        QuestModel temp;
+        Quest temp;
         QuestObjective questObjective;
         //first few quests are given high prio to complete
 
         // Create a QuestModel object for COOKS_ASSISTANT
-        temp = new QuestModel(Quest.COOKS_ASSISTANT, client);
+        temp = (Quest.COOKS_ASSISTANT);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(250);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHEEP_SHEARER
-        temp = new QuestModel(Quest.SHEEP_SHEARER, client);
+        temp = (Quest.SHEEP_SHEARER);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(250);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MISTHALIN_MYSTERY
-        temp = new QuestModel(Quest.MISTHALIN_MYSTERY, client);
+        temp = (Quest.MISTHALIN_MYSTERY);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(250);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for PRINCE_ALI_RESCUE
-        temp = new QuestModel(Quest.PRINCE_ALI_RESCUE, client);
+        temp = (Quest.PRINCE_ALI_RESCUE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(100);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_RESTLESS_GHOST
-        temp = new QuestModel(Quest.THE_RESTLESS_GHOST, client);
+        temp = (Quest.THE_RESTLESS_GHOST);
         questObjective = new  QuestObjective(temp);
         questObjective.addBasePriorityLevel(250);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RUNE_MYSTERIES
-        temp = new QuestModel(Quest.RUNE_MYSTERIES, client);
+        temp = (Quest.RUNE_MYSTERIES);
         questObjective = new  QuestObjective(temp);
         questObjective.addBasePriorityLevel(1260); //This is so high because it is not required by a lot of requests, but since it unlocks RC it is a high prio to unlock first
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for IMP_CATCHER
-        temp = new QuestModel(Quest.IMP_CATCHER, client);
+        temp = (Quest.IMP_CATCHER);
         questObjective = new  QuestObjective(temp);
         questObjective.addBasePriorityLevel(250);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WITCHS_POTION
-        temp = new QuestModel(Quest.WITCHS_POTION, client);
+        temp = (Quest.WITCHS_POTION);
         questObjective = new  QuestObjective(temp);
         questObjective.addBasePriorityLevel(250);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GERTRUDES_CAT
-        temp = new QuestModel(Quest.GERTRUDES_CAT, client);
+        temp = (Quest.GERTRUDES_CAT);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(100);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DADDYS_HOME
-        temp = new QuestModel(Quest.DADDYS_HOME, client);
+        temp = (Quest.DADDYS_HOME);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(250);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DWARF_CANNON
-        temp = new QuestModel(Quest.DWARF_CANNON, client);
+        temp = (Quest.DWARF_CANNON);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(50);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WATERFALL_QUEST
-        temp = new QuestModel(Quest.WATERFALL_QUEST, client);
+        temp = (Quest.WATERFALL_QUEST);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-10");
@@ -128,7 +128,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TREE_GNOME_VILLAGE
-        temp = new QuestModel(Quest.TREE_GNOME_VILLAGE, client);
+        temp = (Quest.TREE_GNOME_VILLAGE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
@@ -136,14 +136,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DORICS_QUEST
-        temp = new QuestModel(Quest.DORICS_QUEST, client);
+        temp = (Quest.DORICS_QUEST);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(100);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WITCHS_HOUSE
-        temp = new QuestModel(Quest.WITCHS_HOUSE, client);
+        temp = (Quest.WITCHS_HOUSE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(100);
@@ -151,7 +151,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_KNIGHTS_SWORD
-        temp = new QuestModel(Quest.THE_KNIGHTS_SWORD, client);
+        temp = (Quest.THE_KNIGHTS_SWORD);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(100);
@@ -160,7 +160,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_TOURIST_TRAP
-        temp = new QuestModel(Quest.THE_TOURIST_TRAP, client);
+        temp = (Quest.THE_TOURIST_TRAP);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
@@ -169,21 +169,21 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BLACK_KNIGHTS_FORTRESS
-        temp = new QuestModel(Quest.BLACK_KNIGHTS_FORTRESS, client);
+        temp = (Quest.BLACK_KNIGHTS_FORTRESS);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-12");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DRUIDIC_RITUAL
-        temp = new QuestModel(Quest.DRUIDIC_RITUAL, client);
+        temp = (Quest.DRUIDIC_RITUAL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-10");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECRUITMENT_DRIVE
-        temp = new QuestModel(Quest.RECRUITMENT_DRIVE, client);
+        temp = (Quest.RECRUITMENT_DRIVE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-BLACK_KNIGHTS_FORTRESS");
@@ -192,54 +192,54 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GOBLIN_DIPLOMACY
-        temp = new QuestModel(Quest.GOBLIN_DIPLOMACY, client);
+        temp = (Quest.GOBLIN_DIPLOMACY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SLEEPING_GIANTS
-        temp = new QuestModel(Quest.SLEEPING_GIANTS, client);
+        temp = (Quest.SLEEPING_GIANTS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-SMITHING-15");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FIGHT_ARENA
-        temp = new QuestModel(Quest.FIGHT_ARENA, client);
+        temp = (Quest.FIGHT_ARENA);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-50");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for PLAGUE_CITY
-        temp = new QuestModel(Quest.PLAGUE_CITY, client);
+        temp = (Quest.PLAGUE_CITY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MONKS_FRIEND
-        temp = new QuestModel(Quest.MONKS_FRIEND, client);
+        temp = (Quest.MONKS_FRIEND);
         questObjective.addBasePriorityLevel(40);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HAZEEL_CULT
-        temp = new QuestModel(Quest.HAZEEL_CULT, client);
+        temp = (Quest.HAZEEL_CULT);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-10");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHEEP_HERDER
-        temp = new QuestModel(Quest.SHEEP_HERDER, client);
+        temp = (Quest.SHEEP_HERDER);
         questObjective.addBasePriorityLevel(40);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BIOHAZARD
-        temp = new QuestModel(Quest.BIOHAZARD, client);
+        temp = (Quest.BIOHAZARD);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PLAGUE_CITY");
@@ -247,34 +247,34 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TOWER_OF_LIFE
-        temp = new QuestModel(Quest.TOWER_OF_LIFE, client);
+        temp = (Quest.TOWER_OF_LIFE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CONSTRUCTION-10");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TRIBAL_TOTEM
-        temp = new QuestModel(Quest.TRIBAL_TOTEM, client);
+        temp = (Quest.TRIBAL_TOTEM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-THIEVING-21");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DEATH_PLATEAU
-        temp = new QuestModel(Quest.DEATH_PLATEAU, client);
+        temp = (Quest.DEATH_PLATEAU);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MERLINS_CRYSTAL
-        temp = new QuestModel(Quest.MERLINS_CRYSTAL, client);
+        temp = (Quest.MERLINS_CRYSTAL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HOLY_GRAIL
-        temp = new QuestModel(Quest.HOLY_GRAIL, client);
+        temp = (Quest.HOLY_GRAIL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-MERLINS_CRYSTAL");
@@ -283,13 +283,13 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MURDER_MYSTERY
-        temp = new QuestModel(Quest.MURDER_MYSTERY, client);
+        temp = (Quest.MURDER_MYSTERY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GRAND_TREE
-        temp = new QuestModel(Quest.THE_GRAND_TREE, client);
+        temp = (Quest.THE_GRAND_TREE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-25");
@@ -298,21 +298,21 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RAG_AND_BONE_MAN_I
-        temp = new QuestModel(Quest.RAG_AND_BONE_MAN_I, client);
+        temp = (Quest.RAG_AND_BONE_MAN_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for PRIEST_IN_PERIL
-        temp = new QuestModel(Quest.PRIEST_IN_PERIL, client);
+        temp = (Quest.PRIEST_IN_PERIL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for NATURE_SPIRIT
-        temp = new QuestModel(Quest.NATURE_SPIRIT, client);
+        temp = (Quest.NATURE_SPIRIT);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
@@ -321,7 +321,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_LOST_TRIBE
-        temp = new QuestModel(Quest.THE_LOST_TRIBE, client);
+        temp = (Quest.THE_LOST_TRIBE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-13");
@@ -332,7 +332,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DEATH_TO_THE_DORGESHUUN
-        temp = new QuestModel(Quest.DEATH_TO_THE_DORGESHUUN, client);
+        temp = (Quest.DEATH_TO_THE_DORGESHUUN);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_LOST_TRIBE");
@@ -342,7 +342,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ELEMENTAL_WORKSHOP_I
-        temp = new QuestModel(Quest.ELEMENTAL_WORKSHOP_I, client);
+        temp = (Quest.ELEMENTAL_WORKSHOP_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-MINING-20");
@@ -352,7 +352,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ICTHLARINS_LITTLE_HELPER
-        temp = new QuestModel(Quest.ICTHLARINS_LITTLE_HELPER, client);
+        temp = (Quest.ICTHLARINS_LITTLE_HELPER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-50");
@@ -361,7 +361,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GOLEM
-        temp = new QuestModel(Quest.THE_GOLEM, client);
+        temp = (Quest.THE_GOLEM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-20");
@@ -369,7 +369,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for LOST_CITY
-        temp = new QuestModel(Quest.LOST_CITY, client);
+        temp = (Quest.LOST_CITY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-45");
@@ -379,7 +379,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FAIRYTALE_I__GROWING_PAINS
-        temp = new QuestModel(Quest.FAIRYTALE_I__GROWING_PAINS, client);
+        temp = (Quest.FAIRYTALE_I__GROWING_PAINS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-LOST_CITY");
@@ -388,7 +388,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-COOKING-10");
@@ -396,7 +396,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__WARTFACE__BENTNOZE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__WARTFACE__BENTNOZE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__WARTFACE__BENTNOZE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(50);
@@ -405,7 +405,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SEA_SLUG
-        temp = new QuestModel(Quest.SEA_SLUG, client);
+        temp = (Quest.SEA_SLUG);
         questObjective.addBasePriorityLevel(5);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
@@ -413,14 +413,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FISHING_CONTEST
-        temp = new QuestModel(Quest.FISHING_CONTEST, client);
+        temp = (Quest.FISHING_CONTEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-FISHING-10");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__MOUNTAIN_DWARF
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__MOUNTAIN_DWARF, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__MOUNTAIN_DWARF);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(50);
@@ -429,7 +429,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MOUNTAIN_DAUGHTER
-        temp = new QuestModel(Quest.MOUNTAIN_DAUGHTER, client);
+        temp = (Quest.MOUNTAIN_DAUGHTER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-40");
@@ -437,7 +437,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RATCATCHERS
-        temp = new QuestModel(Quest.RATCATCHERS, client);
+        temp = (Quest.RATCATCHERS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-ICTHLARINS_LITTLE_HELPER");
@@ -445,7 +445,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FEUD
-        temp = new QuestModel(Quest.THE_FEUD, client);
+        temp = (Quest.THE_FEUD);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-THIEVING-30");
@@ -453,13 +453,13 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ALFRED_GRIMHANDS_BARCRAWL
-        temp = new QuestModel(Quest.ALFRED_GRIMHANDS_BARCRAWL, client);
+        temp = (Quest.ALFRED_GRIMHANDS_BARCRAWL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SCORPION_CATCHER
-        temp = new QuestModel(Quest.SCORPION_CATCHER, client);
+        temp = (Quest.SCORPION_CATCHER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-PRAYER-31");
@@ -468,7 +468,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_DIG_SITE
-        temp = new QuestModel(Quest.THE_DIG_SITE, client);
+        temp = (Quest.THE_DIG_SITE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-10");
@@ -478,7 +478,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ELEMENTAL_WORKSHOP_II
-        temp = new QuestModel(Quest.ELEMENTAL_WORKSHOP_II, client);
+        temp = (Quest.ELEMENTAL_WORKSHOP_II);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-MAGIC-20");
@@ -488,33 +488,33 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_SOULS_BANE
-        temp = new QuestModel(Quest.A_SOULS_BANE, client);
+        temp = (Quest.A_SOULS_BANE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-30");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ENTER_THE_ABYSS
-        temp = new QuestModel(Quest.ENTER_THE_ABYSS, client);
+        temp = (Quest.ENTER_THE_ABYSS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(15);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for X_MARKS_THE_SPOT
-        temp = new QuestModel(Quest.X_MARKS_THE_SPOT, client);
+        temp = (Quest.X_MARKS_THE_SPOT);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for PIRATES_TREASURE
-        temp = new QuestModel(Quest.PIRATES_TREASURE, client);
+        temp = (Quest.PIRATES_TREASURE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CLIENT_OF_KOUREND
-        temp = new QuestModel(Quest.CLIENT_OF_KOUREND, client);
+        temp = (Quest.CLIENT_OF_KOUREND);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-X_MARKS_THE_SPOT");
@@ -522,7 +522,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_QUEEN_OF_THIEVES
-        temp = new QuestModel(Quest.THE_QUEEN_OF_THIEVES, client);
+        temp = (Quest.THE_QUEEN_OF_THIEVES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CLIENT_OF_KOUREND");
@@ -530,7 +530,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_DEPTHS_OF_DESPAIR
-        temp = new QuestModel(Quest.THE_DEPTHS_OF_DESPAIR, client);
+        temp = (Quest.THE_DEPTHS_OF_DESPAIR);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CLIENT_OF_KOUREND");
@@ -539,14 +539,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_PORCINE_OF_INTEREST
-        temp = new QuestModel(Quest.A_PORCINE_OF_INTEREST, client);
+        temp = (Quest.A_PORCINE_OF_INTEREST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WANTED
-        temp = new QuestModel(Quest.WANTED, client);
+        temp = (Quest.WANTED);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-32");
@@ -558,13 +558,13 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHIELD_OF_ARRAV
-        temp = new QuestModel(Quest.SHIELD_OF_ARRAV, client);
+        temp = (Quest.SHIELD_OF_ARRAV);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BONE_VOYAGE
-        temp = new QuestModel(Quest.BONE_VOYAGE, client);
+        temp = (Quest.BONE_VOYAGE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_DIG_SITE");
@@ -572,7 +572,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WATCHTOWER
-        temp = new QuestModel(Quest.WATCHTOWER, client);
+        temp = (Quest.WATCHTOWER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(5);
@@ -585,7 +585,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GIANT_DWARF
-        temp = new QuestModel(Quest.THE_GIANT_DWARF, client);
+        temp = (Quest.THE_GIANT_DWARF);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-12");
@@ -596,7 +596,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MAKING_HISTORY
-        temp = new QuestModel(Quest.MAKING_HISTORY, client);
+        temp = (Quest.MAKING_HISTORY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PRIEST_IN_PERIL");
@@ -604,7 +604,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GHOSTS_AHOY
-        temp = new QuestModel(Quest.GHOSTS_AHOY, client);
+        temp = (Quest.GHOSTS_AHOY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
@@ -615,7 +615,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FORGETTABLE_TALE
-        temp = new QuestModel(Quest.FORGETTABLE_TALE, client);
+        temp = (Quest.FORGETTABLE_TALE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_GIANT_DWARF");
@@ -625,7 +625,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ANOTHER_SLICE_OF_HAM
-        temp = new QuestModel(Quest.ANOTHER_SLICE_OF_HAM, client);
+        temp = (Quest.ANOTHER_SLICE_OF_HAM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-DEATH_TO_THE_DORGESHUUN");
@@ -637,27 +637,27 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for VAMPYRE_SLAYER
-        temp = new QuestModel(Quest.VAMPYRE_SLAYER, client);
+        temp = (Quest.VAMPYRE_SLAYER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ERNEST_THE_CHICKEN
-        temp = new QuestModel(Quest.ERNEST_THE_CHICKEN, client);
+        temp = (Quest.ERNEST_THE_CHICKEN);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DEMON_SLAYER
-        temp = new QuestModel(Quest.DEMON_SLAYER, client);
+        temp = (Quest.DEMON_SLAYER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHADOW_OF_THE_STORM
-        temp = new QuestModel(Quest.SHADOW_OF_THE_STORM, client);
+        temp = (Quest.SHADOW_OF_THE_STORM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-30");
@@ -667,7 +667,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ANIMAL_MAGNETISM
-        temp = new QuestModel(Quest.ANIMAL_MAGNETISM, client);
+        temp = (Quest.ANIMAL_MAGNETISM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_RESTLESS_GHOST");
@@ -681,7 +681,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CREATURE_OF_FENKENSTRAIN
-        temp = new QuestModel(Quest.CREATURE_OF_FENKENSTRAIN, client);
+        temp = (Quest.CREATURE_OF_FENKENSTRAIN);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-20");
@@ -690,7 +690,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BIG_CHOMPY_BIRD_HUNTING
-        temp = new QuestModel(Quest.BIG_CHOMPY_BIRD_HUNTING, client);
+        temp = (Quest.BIG_CHOMPY_BIRD_HUNTING);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-FLETCHING-5");
@@ -700,7 +700,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for JUNGLE_POTION
-        temp = new QuestModel(Quest.JUNGLE_POTION, client);
+        temp = (Quest.JUNGLE_POTION);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
@@ -709,7 +709,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHILO_VILLAGE
-        temp = new QuestModel(Quest.SHILO_VILLAGE, client);
+        temp = (Quest.SHILO_VILLAGE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(10);
@@ -720,7 +720,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ZOGRE_FLESH_EATERS
-        temp = new QuestModel(Quest.ZOGRE_FLESH_EATERS, client);
+        temp = (Quest.ZOGRE_FLESH_EATERS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-SMITHING-4");
@@ -732,14 +732,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for OBSERVATORY_QUEST
-        temp = new QuestModel(Quest.OBSERVATORY_QUEST, client);
+        temp = (Quest.OBSERVATORY_QUEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HORROR_FROM_THE_DEEP
-        temp = new QuestModel(Quest.HORROR_FROM_THE_DEEP, client);
+        temp = (Quest.HORROR_FROM_THE_DEEP);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(5);
@@ -749,7 +749,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SPIRITS_OF_THE_ELID
-        temp = new QuestModel(Quest.SPIRITS_OF_THE_ELID, client);
+        temp = (Quest.SPIRITS_OF_THE_ELID);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-MAGIC-33");
@@ -760,14 +760,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GARDEN_OF_TRANQUILLITY
-        temp = new QuestModel(Quest.GARDEN_OF_TRANQUILLITY, client);
+        temp = (Quest.GARDEN_OF_TRANQUILLITY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-FARMING-25");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ENLIGHTENED_JOURNEY
-        temp = new QuestModel(Quest.ENLIGHTENED_JOURNEY, client);
+        temp = (Quest.ENLIGHTENED_JOURNEY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-20");
@@ -777,14 +777,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ROMEO__JULIET
-        temp = new QuestModel(Quest.ROMEO__JULIET, client);
+        temp = (Quest.ROMEO__JULIET);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(20);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TEARS_OF_GUTHIX
-        temp = new QuestModel(Quest.TEARS_OF_GUTHIX, client);
+        temp = (Quest.TEARS_OF_GUTHIX);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(20);
@@ -795,7 +795,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for IN_SEARCH_OF_THE_MYREQUE
-        temp = new QuestModel(Quest.IN_SEARCH_OF_THE_MYREQUE, client);
+        temp = (Quest.IN_SEARCH_OF_THE_MYREQUE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-NATURE_SPIRIT");
@@ -804,7 +804,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SHADES_OF_MORTTON
-        temp = new QuestModel(Quest.SHADES_OF_MORTTON, client);
+        temp = (Quest.SHADES_OF_MORTTON);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PRIEST_IN_PERIL");
@@ -812,7 +812,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for IN_AID_OF_THE_MYREQUE
-        temp = new QuestModel(Quest.IN_AID_OF_THE_MYREQUE, client);
+        temp = (Quest.IN_AID_OF_THE_MYREQUE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-IN_SEARCH_OF_THE_MYREQUE");
@@ -824,14 +824,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SKIPPY_AND_THE_MOGRES
-        temp = new QuestModel(Quest.SKIPPY_AND_THE_MOGRES, client);
+        temp = (Quest.SKIPPY_AND_THE_MOGRES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-COOKING-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TROLL_STRONGHOLD
-        temp = new QuestModel(Quest.TROLL_STRONGHOLD, client);
+        temp = (Quest.TROLL_STRONGHOLD);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-DEATH_PLATEAU");
@@ -840,7 +840,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TROLL_ROMANCE
-        temp = new QuestModel(Quest.TROLL_ROMANCE, client);
+        temp = (Quest.TROLL_ROMANCE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-TROLL_STRONGHOLD");
@@ -849,7 +849,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DARKNESS_OF_HALLOWVALE
-        temp = new QuestModel(Quest.DARKNESS_OF_HALLOWVALE, client);
+        temp = (Quest.DARKNESS_OF_HALLOWVALE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-IN_AID_OF_THE_MYREQUE");
@@ -864,7 +864,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for UNDERGROUND_PASS
-        temp = new QuestModel(Quest.UNDERGROUND_PASS, client);
+        temp = (Quest.UNDERGROUND_PASS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-BIOHAZARD");
@@ -873,7 +873,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for REGICIDE
-        temp = new QuestModel(Quest.REGICIDE, client);
+        temp = (Quest.REGICIDE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-10");
@@ -883,7 +883,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DRAGON_SLAYER_I
-        temp = new QuestModel(Quest.DRAGON_SLAYER_I, client);
+        temp = (Quest.DRAGON_SLAYER_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-32");
@@ -892,14 +892,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FREMENNIK_TRIALS
-        temp = new QuestModel(Quest.THE_FREMENNIK_TRIALS, client);
+        temp = (Quest.THE_FREMENNIK_TRIALS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-40");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FREMENNIK_ISLES
-        temp = new QuestModel(Quest.THE_FREMENNIK_ISLES, client);
+        temp = (Quest.THE_FREMENNIK_ISLES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CONSTRUCTION-20");
@@ -908,7 +908,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__EVIL_DAVE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__EVIL_DAVE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__EVIL_DAVE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -918,7 +918,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__PIRATE_PETE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__PIRATE_PETE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__PIRATE_PETE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -926,7 +926,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TAI_BWO_WANNAI_TRIO
-        temp = new QuestModel(Quest.TAI_BWO_WANNAI_TRIO, client);
+        temp = (Quest.TAI_BWO_WANNAI_TRIO);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-15");
@@ -936,7 +936,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CONTACT
-        temp = new QuestModel(Quest.CONTACT, client);
+        temp = (Quest.CONTACT);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-50");
@@ -945,7 +945,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TEMPLE_OF_IKOV
-        temp = new QuestModel(Quest.TEMPLE_OF_IKOV, client);
+        temp = (Quest.TEMPLE_OF_IKOV);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-THIEVING-42");
@@ -954,7 +954,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_EYES_OF_GLOUPHRIE
-        temp = new QuestModel(Quest.THE_EYES_OF_GLOUPHRIE, client);
+        temp = (Quest.THE_EYES_OF_GLOUPHRIE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_GRAND_TREE");
@@ -963,7 +963,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TEMPLE_OF_THE_EYE
-        temp = new QuestModel(Quest.TEMPLE_OF_THE_EYE, client);
+        temp = (Quest.TEMPLE_OF_THE_EYE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-ENTER_THE_ABYSS");
@@ -971,7 +971,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ONE_SMALL_FAVOUR
-        temp = new QuestModel(Quest.ONE_SMALL_FAVOUR, client);
+        temp = (Quest.ONE_SMALL_FAVOUR);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-45");
@@ -984,7 +984,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_ASCENT_OF_ARCEUUS
-        temp = new QuestModel(Quest.THE_ASCENT_OF_ARCEUUS, client);
+        temp = (Quest.THE_ASCENT_OF_ARCEUUS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CLIENT_OF_KOUREND");
@@ -992,7 +992,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for TALE_OF_THE_RIGHTEOUS CLIENT_OF_KOUREND
-        temp = new QuestModel(Quest.TALE_OF_THE_RIGHTEOUS, client);
+        temp = (Quest.TALE_OF_THE_RIGHTEOUS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CLIENT_OF_KOUREND");
@@ -1002,7 +1002,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BETWEEN_A_ROCK
-        temp = new QuestModel(Quest.BETWEEN_A_ROCK, client);
+        temp = (Quest.BETWEEN_A_ROCK);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-DWARF_CANNON");
@@ -1014,14 +1014,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FORSAKEN_TOWER
-        temp = new QuestModel(Quest.THE_FORSAKEN_TOWER, client);
+        temp = (Quest.THE_FORSAKEN_TOWER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CLIENT_OF_KOUREND");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_SLUG_MENACE
-        temp = new QuestModel(Quest.THE_SLUG_MENACE, client);
+        temp = (Quest.THE_SLUG_MENACE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-30");
@@ -1034,7 +1034,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GETTING_AHEAD
-        temp = new QuestModel(Quest.GETTING_AHEAD, client);
+        temp = (Quest.GETTING_AHEAD);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-30");
@@ -1043,7 +1043,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for COLD_WAR
-        temp = new QuestModel(Quest.COLD_WAR, client);
+        temp = (Quest.COLD_WAR);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-HUNTER-10");
@@ -1055,7 +1055,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_HAND_IN_THE_SAND
-        temp = new QuestModel(Quest.THE_HAND_IN_THE_SAND, client);
+        temp = (Quest.THE_HAND_IN_THE_SAND);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-THIEVING-17");
@@ -1063,7 +1063,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ENAKHRAS_LAMENT
-        temp = new QuestModel(Quest.ENAKHRAS_LAMENT, client);
+        temp = (Quest.ENAKHRAS_LAMENT);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-25");
@@ -1074,7 +1074,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for EADGARS_RUSE
-        temp = new QuestModel(Quest.EADGARS_RUSE, client);
+        temp = (Quest.EADGARS_RUSE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-DRUIDIC_RITUAL");
@@ -1083,7 +1083,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MY_ARMS_BIG_ADVENTURE
-        temp = new QuestModel(Quest.MY_ARMS_BIG_ADVENTURE, client);
+        temp = (Quest.MY_ARMS_BIG_ADVENTURE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-EADGARS_RUSE");
@@ -1095,7 +1095,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GARDEN_OF_DEATH
-        temp = new QuestModel(Quest.THE_GARDEN_OF_DEATH, client);
+        temp = (Quest.THE_GARDEN_OF_DEATH);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
@@ -1103,7 +1103,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RAG_AND_BONE_MAN_II
-        temp = new QuestModel(Quest.RAG_AND_BONE_MAN_II, client);
+        temp = (Quest.RAG_AND_BONE_MAN_II);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-40");
@@ -1120,7 +1120,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RUM_DEAL
-        temp = new QuestModel(Quest.RUM_DEAL, client);
+        temp = (Quest.RUM_DEAL);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-ZOGRE_FLESH_EATERS");
@@ -1132,7 +1132,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CABIN_FEVER
-        temp = new QuestModel(Quest.CABIN_FEVER, client);
+        temp = (Quest.CABIN_FEVER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PIRATES_TREASURE");
@@ -1145,7 +1145,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__LUMBRIDGE_GUIDE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__LUMBRIDGE_GUIDE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__LUMBRIDGE_GUIDE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -1159,7 +1159,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__SKRACH_UGLOGWEE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__SKRACH_UGLOGWEE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__SKRACH_UGLOGWEE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -1169,7 +1169,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HEROES_QUEST
-        temp = new QuestModel(Quest.HEROES_QUEST, client);
+        temp = (Quest.HEROES_QUEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-50");
@@ -1185,7 +1185,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THRONE_OF_MISCELLANIA
-        temp = new QuestModel(Quest.THRONE_OF_MISCELLANIA, client);
+        temp = (Quest.THRONE_OF_MISCELLANIA);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-HEROES_QUEST");
@@ -1193,7 +1193,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ROYAL_TROUBLE
-        temp = new QuestModel(Quest.ROYAL_TROUBLE, client);
+        temp = (Quest.ROYAL_TROUBLE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THRONE_OF_MISCELLANIA");
@@ -1203,7 +1203,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HAUNTED_MINE
-        temp = new QuestModel(Quest.HAUNTED_MINE, client);
+        temp = (Quest.HAUNTED_MINE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PRIEST_IN_PERIL");
@@ -1212,7 +1212,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for LAIR_OF_TARN_RAZORLOR
-        temp = new QuestModel(Quest.LAIR_OF_TARN_RAZORLOR, client);
+        temp = (Quest.LAIR_OF_TARN_RAZORLOR);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-50");
@@ -1221,7 +1221,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MONKEY_MADNESS_I
-        temp = new QuestModel(Quest.MONKEY_MADNESS_I, client);
+        temp = (Quest.MONKEY_MADNESS_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-65");
@@ -1231,7 +1231,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for ROVING_ELVES
-        temp = new QuestModel(Quest.ROVING_ELVES, client);
+        temp = (Quest.ROVING_ELVES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-REGICIDE");
@@ -1239,7 +1239,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MOURNINGS_END_PART_I
-        temp = new QuestModel(Quest.MOURNINGS_END_PART_I, client);
+        temp = (Quest.MOURNINGS_END_PART_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-60");
@@ -1251,7 +1251,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MOURNINGS_END_PART_II
-        temp = new QuestModel(Quest.MOURNINGS_END_PART_II, client);
+        temp = (Quest.MOURNINGS_END_PART_II);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-MOURNINGS_END_PART_I");
@@ -1260,7 +1260,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DESERT_TREASURE_I
-        temp = new QuestModel(Quest.DESERT_TREASURE_I, client);
+        temp = (Quest.DESERT_TREASURE_I);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_DIG_SITE");
@@ -1278,7 +1278,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FAMILY_CREST
-        temp = new QuestModel(Quest.FAMILY_CREST, client);
+        temp = (Quest.FAMILY_CREST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-55");
@@ -1286,7 +1286,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for WHAT_LIES_BELOW
-        temp = new QuestModel(Quest.WHAT_LIES_BELOW, client);
+        temp = (Quest.WHAT_LIES_BELOW);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-RUNECRAFT-35");
@@ -1295,7 +1295,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for EAGLES_PEAK
-        temp = new QuestModel(Quest.EAGLES_PEAK, client);
+        temp = (Quest.EAGLES_PEAK);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-HUNTER-27");
@@ -1303,14 +1303,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_TAIL_OF_TWO_CATS
-        temp = new QuestModel(Quest.A_TAIL_OF_TWO_CATS, client);
+        temp = (Quest.A_TAIL_OF_TWO_CATS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-ICTHLARINS_LITTLE_HELPER");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for LEGENDS_QUEST
-        temp = new QuestModel(Quest.LEGENDS_QUEST, client);
+        temp = (Quest.LEGENDS_QUEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-107");
@@ -1334,7 +1334,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for LAND_OF_THE_GOBLINS
-        temp = new QuestModel(Quest.LAND_OF_THE_GOBLINS, client);
+        temp = (Quest.LAND_OF_THE_GOBLINS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-ANOTHER_SLICE_OF_HAM");
@@ -1347,7 +1347,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__SIR_AMIK_VARZE
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__SIR_AMIK_VARZE, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__SIR_AMIK_VARZE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -1360,7 +1360,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for OLAFS_QUEST
-        temp = new QuestModel(Quest.OLAFS_QUEST, client);
+        temp = (Quest.OLAFS_QUEST);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-FIREMAKING-40");
@@ -1370,7 +1370,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_KINGDOM_DIVIDED
-        temp = new QuestModel(Quest.A_KINGDOM_DIVIDED, client);
+        temp = (Quest.A_KINGDOM_DIVIDED);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-70");
@@ -1391,7 +1391,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_TASTE_OF_HOPE
-        temp = new QuestModel(Quest.A_TASTE_OF_HOPE, client);
+        temp = (Quest.A_TASTE_OF_HOPE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(10);
@@ -1405,7 +1405,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CURSE_OF_THE_EMPTY_LORD
-        temp = new QuestModel(Quest.CURSE_OF_THE_EMPTY_LORD, client);
+        temp = (Quest.CURSE_OF_THE_EMPTY_LORD);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-THIEVING-53");
@@ -1413,7 +1413,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GENERALS_SHADOW
-        temp = new QuestModel(Quest.THE_GENERALS_SHADOW, client);
+        temp = (Quest.THE_GENERALS_SHADOW);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CURSE_OF_THE_EMPTY_LORD");
@@ -1423,7 +1423,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HIS_FAITHFUL_SERVANTS
-        temp = new QuestModel(Quest.HIS_FAITHFUL_SERVANTS, client);
+        temp = (Quest.HIS_FAITHFUL_SERVANTS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-PRIEST_IN_PERIL");
@@ -1431,7 +1431,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_GREAT_BRAIN_ROBBERY
-        temp = new QuestModel(Quest.THE_GREAT_BRAIN_ROBBERY, client);
+        temp = (Quest.THE_GREAT_BRAIN_ROBBERY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-CRAFTING-16");
@@ -1444,7 +1444,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FAIRYTALE_II__CURE_A_QUEEN
-        temp = new QuestModel(Quest.FAIRYTALE_II__CURE_A_QUEEN, client);
+        temp = (Quest.FAIRYTALE_II__CURE_A_QUEEN);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-FAIRYTALE_I__GROWING_PAINS");
@@ -1455,7 +1455,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__KING_AWOWOGEI
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__KING_AWOWOGEI, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__KING_AWOWOGEI);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-RECIPE_FOR_DISASTER__ANOTHER_COOKS_QUEST");
@@ -1466,7 +1466,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER__CULINAROMANCER
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER__CULINAROMANCER, client);
+        temp = (Quest.RECIPE_FOR_DISASTER__CULINAROMANCER);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(80);
@@ -1486,7 +1486,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for RECIPE_FOR_DISASTER
-        temp = new QuestModel(Quest.RECIPE_FOR_DISASTER, client);
+        temp = (Quest.RECIPE_FOR_DISASTER);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(400);
@@ -1494,7 +1494,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_PATH_OF_GLOUPHRIE
-        temp = new QuestModel(Quest.THE_PATH_OF_GLOUPHRIE, client);
+        temp = (Quest.THE_PATH_OF_GLOUPHRIE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_EYES_OF_GLOUPHRIE");
@@ -1508,7 +1508,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for LUNAR_DIPLOMACY
-        temp = new QuestModel(Quest.LUNAR_DIPLOMACY, client);
+        temp = (Quest.LUNAR_DIPLOMACY);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-50");
@@ -1527,7 +1527,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for KINGS_RANSOM
-        temp = new QuestModel(Quest.KINGS_RANSOM, client);
+        temp = (Quest.KINGS_RANSOM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-BLACK_KNIGHTS_FORTRESS");
@@ -1540,7 +1540,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SWAN_SONG
-        temp = new QuestModel(Quest.SWAN_SONG, client);
+        temp = (Quest.SWAN_SONG);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(20);
@@ -1557,7 +1557,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BELOW_ICE_MOUNTAIN
-        temp = new QuestModel(Quest.BELOW_ICE_MOUNTAIN, client);
+        temp = (Quest.BELOW_ICE_MOUNTAIN);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QP-16");
@@ -1566,7 +1566,7 @@ public class QuestObjectives {
         //TODO: INSERT DEFENDER OF VARROCK
 
         // Create a QuestModel object for DEVIOUS_MINDS
-        temp = new QuestModel(Quest.DEVIOUS_MINDS, client);
+        temp = (Quest.DEVIOUS_MINDS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-WANTED");
@@ -1580,7 +1580,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for GRIM_TALES
-        temp = new QuestModel(Quest.GRIM_TALES, client);
+        temp = (Quest.GRIM_TALES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-WITCHS_HOUSE");
@@ -1593,7 +1593,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DREAM_MENTOR
-        temp = new QuestModel(Quest.DREAM_MENTOR, client);
+        temp = (Quest.DREAM_MENTOR);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-LUNAR_DIPLOMACY");
@@ -1603,7 +1603,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FREMENNIK_EXILES
-        temp = new QuestModel(Quest.THE_FREMENNIK_EXILES, client);
+        temp = (Quest.THE_FREMENNIK_EXILES);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_FREMENNIK_ISLES");
@@ -1618,7 +1618,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SINS_OF_THE_FATHER
-        temp = new QuestModel(Quest.SINS_OF_THE_FATHER, client);
+        temp = (Quest.SINS_OF_THE_FATHER);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-WOODCUTTING-62");
@@ -1634,14 +1634,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for IN_SEARCH_OF_KNOWLEDGE
-        temp = new QuestModel(Quest.IN_SEARCH_OF_KNOWLEDGE, client);
+        temp = (Quest.IN_SEARCH_OF_KNOWLEDGE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-45");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BENEATH_CURSED_SANDS
-        temp = new QuestModel(Quest.BENEATH_CURSED_SANDS, client);
+        temp = (Quest.BENEATH_CURSED_SANDS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-CONTACT");
@@ -1653,7 +1653,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MONKEY_MADNESS_II
-        temp = new QuestModel(Quest.MONKEY_MADNESS_II, client);
+        temp = (Quest.MONKEY_MADNESS_II);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-90");
@@ -1671,7 +1671,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for INTO_THE_TOMBS
-        temp = new QuestModel(Quest.INTO_THE_TOMBS, client);
+        temp = (Quest.INTO_THE_TOMBS);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-95");
@@ -1680,7 +1680,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for A_NIGHT_AT_THE_THEATRE
-        temp = new QuestModel(Quest.A_NIGHT_AT_THE_THEATRE, client);
+        temp = (Quest.A_NIGHT_AT_THE_THEATRE);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-A_TASTE_OF_HOPE");
@@ -1690,7 +1690,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DRAGON_SLAYER_II
-        temp = new QuestModel(Quest.DRAGON_SLAYER_II, client);
+        temp = (Quest.DRAGON_SLAYER_II);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-LEGENDS_QUEST");
@@ -1716,7 +1716,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MAKING_FRIENDS_WITH_MY_ARM
-        temp = new QuestModel(Quest.MAKING_FRIENDS_WITH_MY_ARM, client);
+        temp = (Quest.MAKING_FRIENDS_WITH_MY_ARM);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-MY_ARMS_BIG_ADVENTURE");
@@ -1731,7 +1731,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SECRETS_OF_THE_NORTH
-        temp = new QuestModel(Quest.SECRETS_OF_THE_NORTH, client);
+        temp = (Quest.SECRETS_OF_THE_NORTH);
         questObjective.addBasePriorityLevel(10);
         questObjective = new  QuestObjective(temp);
                 questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
@@ -1746,7 +1746,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for DESERT_TREASURE_II__THE_FALLEN_EMPIRE
-        temp = new QuestModel(Quest.DESERT_TREASURE_II__THE_FALLEN_EMPIRE, client);
+        temp = (Quest.DESERT_TREASURE_II__THE_FALLEN_EMPIRE);
         questObjective = new  QuestObjective(temp);
         questObjective.addBasePriorityLevel(20);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
@@ -1767,7 +1767,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for SONG_OF_THE_ELVES
-        temp = new QuestModel(Quest.SONG_OF_THE_ELVES, client);
+        temp = (Quest.SONG_OF_THE_ELVES);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(50);
@@ -1786,7 +1786,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CLOCK_TOWER
-        temp = new QuestModel(Quest.CLOCK_TOWER, client);
+        temp = (Quest.CLOCK_TOWER);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-15");
@@ -1795,35 +1795,35 @@ public class QuestObjectives {
 
 
         // Create a QuestModel object for THE_CORSAIR_CURSE
-        temp = new QuestModel(Quest.THE_CORSAIR_CURSE, client);
+        temp = (Quest.THE_CORSAIR_CURSE);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("CMB-20");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for CHILDREN_OF_THE_SUN
-        temp = new QuestModel(Quest.CHILDREN_OF_THE_SUN, client);
+        temp = (Quest.CHILDREN_OF_THE_SUN);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(150);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for BEAR_YOUR_SOUL
-        temp = new QuestModel(Quest.BEAR_YOUR_SOUL, client);
+        temp = (Quest.BEAR_YOUR_SOUL);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addBasePriorityLevel(80);
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_ENCHANTED_KEY
-        temp = new QuestModel(Quest.THE_ENCHANTED_KEY, client);
+        temp = (Quest.THE_ENCHANTED_KEY);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-MAKING_HISTORY");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MAGE_ARENA_I
-        temp = new QuestModel(Quest.MAGE_ARENA_I, client);
+        temp = (Quest.MAGE_ARENA_I);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addTag(ObjectiveTags.WILDERNESS);
@@ -1833,14 +1833,14 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for FAMILY_PEST
-        temp = new QuestModel(Quest.FAMILY_PEST, client);
+        temp = (Quest.FAMILY_PEST);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-FAMILY_CREST");
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for MAGE_ARENA_II
-        temp = new QuestModel(Quest.MAGE_ARENA_II, client);
+        temp = (Quest.MAGE_ARENA_II);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-MAGIC-75");
@@ -1850,7 +1850,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for HOPESPEARS_WILL
-        temp = new QuestModel(Quest.HOPESPEARS_WILL, client);
+        temp = (Quest.HOPESPEARS_WILL);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("QUEST-THE_RESTLESS_GHOST");
@@ -1862,7 +1862,7 @@ public class QuestObjectives {
         QuestObjectivesList.add(questObjective);
 
         // Create a QuestModel object for THE_FROZEN_DOOR
-        temp = new QuestModel(Quest.THE_FROZEN_DOOR, client);
+        temp = (Quest.THE_FROZEN_DOOR);
         questObjective = new  QuestObjective(temp);
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         questObjective.addRequirement("SKILL-AGILITY-70");

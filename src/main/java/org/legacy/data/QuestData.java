@@ -3,35 +3,34 @@ package org.legacy.data;
 import net.runelite.api.Client;
 import net.runelite.api.Quest;
 import net.runelite.api.QuestState;
+import net.runelite.api.VarPlayer;
 import org.legacy.models.QuestModel;
-
+import org.legacy.models.SkillModel;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-@Singleton
 public class QuestData extends Data{
     @Inject
     private Client client;
-    ArrayList<QuestModel> ListOfQuests = new ArrayList<QuestModel>();
-    public QuestData(){
-    }
-    public void updateValues() {
-        ListOfQuests.clear();
-        for(Quest quest :Quest.values()){
-            if (quest.getState(client)!= QuestState.FINISHED) {
-                ListOfQuests.add(new QuestModel(quest, client));
-            }
-        }
-    }
-
+    public static int playerQP;
+    private static HashMap<Quest, QuestModel> questMap = new HashMap<>();
     @Override
-    public String toString() {
-        String result=  "QuestData{ ListOfQuests=" ;
-        for(QuestModel temp :ListOfQuests){
-            result += ",\n " +temp;
+    public void updateValues() {
+        playerQP = client.getVarpValue(VarPlayer.QUEST_POINTS);
+        for(Quest quest :Quest.values()){
+            if (!questMap.containsKey(quest)){
+                QuestModel temp = new QuestModel(quest);
+                temp.updateQuestState(client);
+                questMap.put(quest,temp);
+            }else if(questMap.get(quest).getQuestState()!= QuestState.FINISHED){
+                questMap.get(quest).updateQuestState(client);
+            }
+
         }
-        return result+ "\n}";
+    }
+    public static QuestModel getQuestModel (Quest quest){
+        return questMap.get(quest);
     }
 }

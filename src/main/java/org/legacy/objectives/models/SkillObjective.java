@@ -24,12 +24,12 @@ public class SkillObjective extends Objective{
         }
         this.skill=skill;
         if(targetLevel>2) {
-            this.requirements.add("SKILL-"+skill.getName().toUpperCase()+"-"+(targetLevel-1));
+            this.getRequirements().add("SKILL-"+skill.getName().toUpperCase()+"-"+(targetLevel-1));
         }
     }
 
     @Override
-    public boolean updateCompletedValue(Client client) {
+    public boolean updateCompletedValue() {
         if(SkillData.getSkill(skill).getLvl()>=targetLevel){
             setObjectiveCompleted(true);
             return true;

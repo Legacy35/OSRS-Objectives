@@ -16,7 +16,7 @@ import javax.inject.Singleton;
 import java.util.*;
 
 @Singleton
-public class ObjectivesManager {
+public class ObjectivesManager implements Runnable{
     @Inject
     private ObjectivesConfig config;
     @Inject
@@ -29,89 +29,88 @@ public class ObjectivesManager {
     private boolean isIntialized;
     @Getter
     private boolean intializationStarted;
-    @Getter
-    private int intializationState;
-
     private static final int objectiveListCount =4;
     // 0-> Skills , 1->Cmb Lvl, 2-> Quest, 3-> Quest Point
-    private static final ArrayList<Objective>[] Objectives = new ArrayList[objectiveListCount+1];
+    private static ArrayList<Objective>[] Objectives = new ArrayList[objectiveListCount+1];
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     public ObjectivesManager(){
         intializationStarted=false;
         isIntialized=false;
-        intializationState=0;
+    }
+    @Override
+    public void run() {
+            initialize();
     }
     public void initialize(){
-        log.info("----Initializing Objectives----");
-        skillObjectives.initialize();
-        questObjectives.initialize();
-        intializationState=0;
-        isIntialized=false;
-        intializationStarted=true;
-        Objectives[objectiveListCount]= new ArrayList<Objective>();
-    }
-    public void processInitializedValues(){
         if(isIntialized){
             return;
         }
-        switch(intializationState) {
-            case (0):
-                log.info("----Generating Objectives----");
-                generateObjectives();//medium O(n)
-                break;
-            case (1):
-                log.info("----Assigning Required By Values for Objectives----");
-                assignRequiredByValues();////medium o(n)
-                break;
-            case (2):
-                log.info("----Updating Completion Statuses----");
-                updateAllCompletionStatuses();//medium-Light  o(n)
-                log.info("----Combining Objectives Lists----");
-                combineObjectivesList();//Light o(1)
-                break;
-            case (3):
-                log.info("----Removing Completed Objectives----");
-               // removeCompletedObjectives();//Light O(n)
-                log.info("----Sorting Objectives List by amount of things that require it----");
-                sortByRequiredByCount();//medium-Light o(nlog(N)) //This is so that when we topological sort we start at the head of every relationship tree
-                break;
-            case (5):
-                log.info("----Topologically sorting combined objectives Lists----");
-                Objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(Objectives[objectiveListCount]); //Heavy approx O(N)
-                break;
-            case (6):
-                log.info("----Assigning Priority Levels to Objectives----");
-                prioritizeObjectives(); //Medium-Light //
-                break;
-            case (7):
+        log.info("----Initializing Objectives----");
+        skillObjectives.initialize();
+        questObjectives.initialize();
+        Objectives[objectiveListCount]= new ArrayList<Objective>();
+        intializationStarted=true;
+        log.info("----Generating Objectives----");
+        generateObjectives();//medium O(n)
+        log.info("----Assigning Required By Values for Objectives----");
+        assignRequiredByValues();////medium o(n)
+        log.info("----Updating Completion Statuses----");
+        updateAllCompletionStatuses();//medium-Light  o(n)
+        log.info("----Combining Objectives Lists----");
+        combineObjectivesList();//Light o(1)
+        log.info("----Removing Completed Objectives----");
+        removeCompletedObjectives();//Light O(n)
+        log.info("----Sorting Objectives List by amount of things that require it----");
+        sortByRequiredByCount();//medium-Light o(nlog(N)) //This is so that when we topological sort we start at the head of every relationship tree
+        log.info("----Topologically sorting combined objectives Lists----");
+        Objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(Objectives[objectiveListCount]); //Heavy approx O(N)
+        log.info("----Assigning Priority Levels to Objectives----");
+        prioritizeObjectives(); //Medium-Light //
+        log.info("----Delete Unnecessary/Hidden Objectives----");
+        removeHiddenObjectives(); //light
+        remove0PriorityObjectives();//light
+        log.info("----Sorting Objectives by Priority----");
+        sortObjectivesListByPriority(); //Medium-Light
+        isIntialized=true;
 
-                break;
-            case (8):
-                log.info("----Delete Unnecessary/Hidden Objectives----");
-                removeHiddenObjectives(); //light
-                remove0PriorityObjectives();//light
-                break;
-            case (9):
-                log.info("----Sort Objectives by Priority----");
-                sortObjectivesListByPriority(); //Medium-Light
-                isIntialized=true;
-                break;
-            case (10):
-
-                break;
-            case (11):
-
-                break;
-        }
-        intializationState++;
     }
     private void generateObjectives(){
         skillObjectives.generateObjectives();
-        questObjectives.generateObjectives();
         Objectives[0]= skillObjectives.skillingObjectivesList;
-        Objectives[1]= skillObjectives.CombatLevelObjectivesList;
+        Objectives[1]= skillObjectives.CombatLevelObjectivesList; //hidden
+
+        questObjectives.generateObjectives();
         Objectives[2]= questObjectives.QuestObjectivesList;
-        Objectives[3]= questObjectives.QuestPointObjectivesList;
+        Objectives[3]= questObjectives.QuestPointObjectivesList; //hidden
+        /*
+        achivementObjectives.generateObjectives();
+        Objectives[4]= achivementObjectives.achievementTaskObjectiveList;//partially hidden (KC will instead be a boss Kc objective req and it will be hidden)
+        Objectives[5]= achivementObjectives.achievementTierObjectivesList; //hidden
+        /*
+        combatAchivementObjectives.generateObjectives();
+        Objectives[6]= combatAchivementObjectives.combatAchievementTaskObjectivesList;
+        Objectives[7]= combatAchivementObjectives.combatAchievementTierObjectivesList;//hidden
+
+        musicObjectives.generateObjectives();
+        Objectives[8]= musicObjectives.musicObjectivesList; // ???
+
+        itemObjectives.generateObjectives();
+        Objectives[9]= itemObjectives.wealthObjectivesList; // ???
+        Objectives[10]= itemObjectives.itemObjectivesList; // ???
+        Objectives[11]= itemObjectives.petObjectivesList; // hidden and redirects to boss KC
+
+        bossObjectives.generateObjectives();
+        Objectives[12]= bossObjectives.bossObjectivesList; // ???
+
+        clogObjectives.generateObjectives();
+        Objectives[13]= clogObjectives.clogObjectivesList; // ???
+
+        recurringObjectives.generateRecurringObjectives();
+        Objectives[14]= clogObjectives.clogObjectivesList; // ???
+         */
+         */
+         */
+        /**/
     }
     //organizes Objectives in the CombinedObjectiveList to be topological sorted by requirements
     private ArrayList<Objective> topologicallySortCombinedObjectiveList(ArrayList<Objective> objectives) {
@@ -168,7 +167,7 @@ public class ObjectivesManager {
     //helper function for updating all the completion statuses
     private void updateCompletionStatusesOfAListOfObjectives(ArrayList<Objective> givenObjectives) {
         for(Objective obj : givenObjectives){
-            obj.updateCompletedValue(client);
+            obj.updateCompletedValue();
             obj.updateCanBeDone();
         }
     }

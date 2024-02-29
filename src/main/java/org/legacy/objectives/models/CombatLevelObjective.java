@@ -2,6 +2,7 @@ package org.legacy.objectives.models;
 
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
+import org.legacy.data.SkillData;
 import org.legacy.utils.ObjectiveTags;
 
 public class CombatLevelObjective extends Objective {
@@ -20,8 +21,8 @@ public class CombatLevelObjective extends Objective {
         addRequirement("SKILL-"+Skill.PRAYER.getName().toUpperCase()+"-"+(cmbLvl*21/28));
     }
     @Override
-    public boolean updateCompletedValue(Client client) {
-        setObjectiveCompleted(cmbLvl<=client.getLocalPlayer().getCombatLevel());
+    public boolean updateCompletedValue() {
+        setObjectiveCompleted(cmbLvl<= SkillData.playerCmbLvl);
         return getObjectiveCompleted();
     }
 }

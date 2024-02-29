@@ -65,20 +65,12 @@ public class ObjectivesPlugin extends Plugin
 			playerDataManager.printData();
 		}
 		else if(!playerDataManager.isIntialized()){
-			//TODO: Add stuff here if needed
 		}
 		else if(!objectivesManager.isIntializationStarted()) {
-			objectivesManager.initialize();
+			Thread ObjectivesThread = new Thread(objectivesManager);
+			ObjectivesThread.setName("Objectives Thread");
+			ObjectivesThread.start();
 		}
-		else if(!objectivesManager.isIntialized()) {
-			objectivesManager.processInitializedValues();
-		}else if(gameTick>10){
-			/*playerDataManager.updateValues();
-			objectivesManager.updateAllCompletionStatuses(); //while guthix sleeps was not found*/
-			gameTick=0;
-		}
-		gameTick++;
-
 		if(!once) {
 			//VarInspector test = new VarInspector(client,clientThread,eventBus);
 			once=true;

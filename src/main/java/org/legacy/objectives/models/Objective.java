@@ -18,12 +18,12 @@ public abstract class Objective implements Comparable<Objective> {
     @Getter@Setter
     private int priorityLevel;
     @Getter
-    ArrayList<String> requirements;
+    private ArrayList<String> requirements;
     @Getter
-    ArrayList<String> requiredBy;
-    @Getter
+    private ArrayList<String> requiredBy;
+    @Getter@Setter
     private String title;
-    @Getter
+    @Getter@Setter
     private String description;
     @Getter
     private String reccomendationAFK;
@@ -37,7 +37,7 @@ public abstract class Objective implements Comparable<Objective> {
     private boolean canBeDone;
     @Getter@Setter
     private boolean HiddenObjective;
-    @Getter
+    @Getter@Setter
     private String ID;
     @Getter@Setter
     private boolean priorityGiven;
@@ -74,7 +74,7 @@ public abstract class Objective implements Comparable<Objective> {
     public void addTag(ObjectiveTags type){
         types.add(type);
     }
-    public abstract boolean updateCompletedValue(Client client);
+    public abstract boolean updateCompletedValue();
     public boolean updateCanBeDone(){
         for(String requirement : requirements){
             if(!ObjectivesManager.getObjectiveFromID(requirement).objectiveCompleted){

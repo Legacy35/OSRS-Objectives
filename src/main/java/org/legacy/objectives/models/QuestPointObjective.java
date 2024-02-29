@@ -3,6 +3,7 @@ import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.VarPlayer;
 import org.legacy.core.ObjectivesPlugin;
+import org.legacy.data.QuestData;
 import org.legacy.utils.ObjectiveTags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,8 @@ public class QuestPointObjective extends Objective {
         addTag(ObjectiveTags.QUESTING);
     }
     @Override
-    public boolean updateCompletedValue(Client client) {
-        setObjectiveCompleted(QPReq<=client.getVarpValue(VarPlayer.QUEST_POINTS));
+    public boolean updateCompletedValue() {
+        setObjectiveCompleted(QPReq<= QuestData.playerQP);
         return getObjectiveCompleted();
     }
 }

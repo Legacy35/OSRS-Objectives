@@ -18,8 +18,8 @@ public class CombatAchievementData {
 
     @Inject
     private Client client;
-    public ArrayList<CombatAchievementTaskModel>  combatAchievementTasks = new ArrayList<CombatAchievementTaskModel>();
-    public ArrayList<CombatAchievementModel>  combatAchievements = new ArrayList<CombatAchievementModel>();
+    public static ArrayList<CombatAchievementTaskModel>  combatAchievementTasks = new ArrayList<CombatAchievementTaskModel>();
+    public static ArrayList<CombatAchievementModel>  combatAchievements = new ArrayList<CombatAchievementModel>();
     public CombatAchievementData(){
     }
     public void updateValues() {
