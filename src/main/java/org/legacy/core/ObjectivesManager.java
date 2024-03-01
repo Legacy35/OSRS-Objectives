@@ -90,7 +90,7 @@ public class ObjectivesManager implements Runnable{
         combatAchivementObjectives.generateObjectives();
         Objectives[6]= combatAchivementObjectives.combatAchievementTaskObjectivesList;
         Objectives[7]= combatAchivementObjectives.combatAchievementTierObjectivesList;//hidden
-
+        /*
         musicObjectives.generateObjectives();
         Objectives[8]= musicObjectives.musicObjectivesList; // ???
 

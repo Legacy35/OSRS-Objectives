@@ -1,9 +1,12 @@
 package org.legacy.data;
 
 import net.runelite.api.Client;
+import net.runelite.api.Quest;
 import net.runelite.api.Varbits;
 import org.legacy.core.ObjectivesPlugin;
 import org.legacy.models.AchievementModel;
+import org.legacy.models.AchievementTaskModel;
+import org.legacy.models.QuestModel;
 import org.legacy.utils.Difficulty;
 import org.legacy.utils.Location;
 import org.slf4j.Logger;
@@ -11,12 +14,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AchievementData extends Data{
     @Inject
     private Client client;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     ArrayList<AchievementModel> Achievements = new ArrayList<AchievementModel>();
+    private static HashMap<Quest, ArrayList<AchievementTaskModel>> questMap = new HashMap<>();
     public AchievementData(){
     }
     public void updateValues() {
