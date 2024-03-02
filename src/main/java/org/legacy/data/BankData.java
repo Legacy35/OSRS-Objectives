@@ -61,6 +61,12 @@ public class BankData extends Data{
         config.PlayerSeedVaultValue(seedVault);
         config.PlayerGroupStorageValue(groupStorage);
     }
+
+    @Override
+    public String serializedData() {
+        return "BankData(gePrice=" + this.getTotalValue() + ")";
+    }
+
     private Item[] getItemsFromAStorage(InventoryID inventory){
         ItemContainer itemContainer = this.client.getItemContainer(inventory);
         if (itemContainer == null){
@@ -97,7 +103,4 @@ public class BankData extends Data{
         }
     }
 
-    public String toString() {
-        return "BankData(gePrice=" + this.getTotalValue() + ")";
-    }
 }

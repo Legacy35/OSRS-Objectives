@@ -30,7 +30,16 @@ public class QuestData extends Data{
 
         }
     }
+    @Override
+    public String serializedData() {
+        StringBuilder result= new StringBuilder("Quest Data{\nQP: "+playerQP+"\n");
+        for(QuestModel quest:questMap.values()){
+            result.append(quest).append("\n");
+        }
+        return result.append("\n}").toString();
+    }
     public static QuestModel getQuestModel (Quest quest){
         return questMap.get(quest);
     }
+
 }

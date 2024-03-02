@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
-public class CombatAchievementData {
+public class CombatAchievementData extends Data{
     private String combatAchievementTaskBinary;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
 
@@ -25,6 +25,15 @@ public class CombatAchievementData {
     public void updateValues() {
         updateCombatAchievementTasks();
         updateCombatAchievements();
+    }
+
+    @Override
+    public String serializedData() {
+        StringBuilder result= new StringBuilder("CombatAchievementData{ \n");
+        for(CombatAchievementTaskModel temp :combatAchievementTasks){
+            result.append(",\n ").append(temp);
+        }
+        return result+ "\n}";
     }
 
     private void updateCombatAchievementTasks() {
@@ -54,6 +63,7 @@ public class CombatAchievementData {
                 .append(reverseString(String.format("%32s", Integer.toBinaryString(client.getVarpValue(3773))).replace(' ', '0')))
                 .append(reverseString(String.format("%32s", Integer.toBinaryString(client.getVarpValue(3774))).replace(' ', '0')));
         combatAchievementTaskBinary = builder.toString();
+
     }
     public static String reverseString(String str) {
         StringBuilder reversedBuilder = new StringBuilder();
@@ -61,14 +71,5 @@ public class CombatAchievementData {
             reversedBuilder.append(str.charAt(i));
         }
         return reversedBuilder.toString();
-    }
-
-    @Override
-    public String toString() {
-        String result=  "CombatAchievementData{  BinaryForCA= " +combatAchievementTaskBinary+"\ncombatAchievementTasks=" ;
-        for(CombatAchievementTaskModel temp :combatAchievementTasks){
-            result += ",\n " +temp;
-        }
-        return result+ "\n}";
     }
 }

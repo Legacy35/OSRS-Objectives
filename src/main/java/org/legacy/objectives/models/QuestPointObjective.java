@@ -19,8 +19,7 @@ public class QuestPointObjective extends Objective {
         addTag(ObjectiveTags.QUESTING);
     }
     @Override
-    public boolean updateCompletedValue() {
+    public void updateCompletedValue() {
         setObjectiveCompleted(QPReq<= QuestData.playerQP);
-        return getObjectiveCompleted();
     }
 }

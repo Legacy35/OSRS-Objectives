@@ -22,13 +22,11 @@ public class QuestObjective extends Objective{
     }
 
     @Override
-    public boolean updateCompletedValue() {
+    public void updateCompletedValue() {
         if(QuestData.getQuestModel(quest).getQuestState()== QuestState.FINISHED){
             setObjectiveCompleted(true);
-            return true;
+            return;
         }
         setObjectiveCompleted(false);
-        return false;
-
     }
 }

@@ -28,6 +28,8 @@ public class DataManager {
     private AchievementData playerAchievementData;
     @Inject
     private CombatAchievementData playerCombatAchievementData;
+    @Inject
+    private BossData playerBossData;
     @Getter
     private boolean isIntialized;
     @Getter
@@ -50,13 +52,16 @@ public class DataManager {
         playerQuestData.updateValues();
         playerAchievementData.updateValues();
         playerCombatAchievementData.updateValues();
+        playerBossData.updateValues();
+
     }
     public void printData(){
         log.info("-------Printing Player Data--------");
-        log.info(""+ playerBankValue);
-        log.info(""+ playerSkillData);
-        log.info(""+ playerQuestData);
-        log.info(""+ playerAchievementData);
-        log.info(""+ playerCombatAchievementData);
+        log.info(""+ playerBankValue.serializedData());
+        log.info(""+ playerSkillData.serializedData());
+        log.info(""+ playerQuestData.serializedData());
+        log.info(""+ playerAchievementData.serializedData());
+        log.info(""+ playerCombatAchievementData.serializedData());
+        log.info(""+ playerBossData.serializedData());
     }
 }

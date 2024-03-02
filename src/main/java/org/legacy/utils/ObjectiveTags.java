@@ -16,5 +16,9 @@ public enum ObjectiveTags {
     COLLECTION_LOG,
     WILDERNESS,
 
+    KC_1,
+    KC_5,
+    KC_150,
+
 
 }

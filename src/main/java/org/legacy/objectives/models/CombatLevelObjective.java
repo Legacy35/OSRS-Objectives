@@ -21,8 +21,7 @@ public class CombatLevelObjective extends Objective {
         addRequirement("SKILL-"+Skill.PRAYER.getName().toUpperCase()+"-"+(cmbLvl*21/28));
     }
     @Override
-    public boolean updateCompletedValue() {
+    public void updateCompletedValue() {
         setObjectiveCompleted(cmbLvl<= SkillData.playerCmbLvl);
-        return getObjectiveCompleted();
     }
 }

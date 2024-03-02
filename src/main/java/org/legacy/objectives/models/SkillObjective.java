@@ -29,12 +29,11 @@ public class SkillObjective extends Objective{
     }
 
     @Override
-    public boolean updateCompletedValue() {
+    public void updateCompletedValue() {
         if(SkillData.getSkill(skill).getLvl()>=targetLevel){
             setObjectiveCompleted(true);
-            return true;
+            return;
         }
         setObjectiveCompleted(false);
-        return false;
     }
 }

@@ -16,7 +16,8 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AchievementData extends Data{
+public
+class AchievementData extends Data{
     @Inject
     private Client client;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
@@ -31,6 +32,16 @@ public class AchievementData extends Data{
         updateHardDiaries();
         updateEliteDiaries();
     }
+
+    @Override
+    public String serializedData() {
+        String result = "AchievementData{ \n";
+        for(AchievementModel temp :Achievements){
+            result += ",\n " +temp.toString(client);
+        }
+        return result+ "\n}";
+    }
+
     public void updateEasyDiaries(){
         if(client.getVarbitValue(Varbits.DIARY_ARDOUGNE_EASY)!=1){
             Achievements.add(new AchievementModel(Difficulty.Easy, Location.ARDOUGNE,Varbits.DIARY_ARDOUGNE_EASY));
@@ -183,14 +194,5 @@ public class AchievementData extends Data{
         if(client.getVarbitValue(Varbits.DIARY_WILDERNESS_ELITE)!=1){
             Achievements.add(new AchievementModel(Difficulty.Elite, Location.WILDERNESS,Varbits.DIARY_WILDERNESS_ELITE));
         }
-    }
-
-    @Override
-    public String toString() {
-        String result = "AchievementData{ , Achievements=";
-        for(AchievementModel temp :Achievements){
-            result += ",\n " +temp.toString(client);
-        }
-        return result+ "\n}";
     }
 }

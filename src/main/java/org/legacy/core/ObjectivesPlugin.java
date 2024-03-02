@@ -2,6 +2,8 @@ package org.legacy.core;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.swing.*;
+
 import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -12,6 +14,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
+import net.runelite.client.plugins.info.InfoPanel;
 import org.legacy.devTools.VarInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,18 +75,17 @@ public class ObjectivesPlugin extends Plugin
 			ObjectivesThread.start();
 		}
 		if(!once) {
-			//VarInspector test = new VarInspector(client,clientThread,eventBus);
+			VarInspector test = new VarInspector(client,clientThread,eventBus);
 			once=true;
-			//test.open();
+			test.open();
+			//InfoPanel infoPanel = new InfoPanel ();
 		}
 	}
 	public void test(){
-		log.info("Updating All Data");
-		playerDataManager.updateValues();
-		log.info("Updating All Objectives");
-		objectivesManager.updateAllCompletionStatuses();
-		objectivesManager.printRecommendedSkillingObjectives();
-		objectivesManager.printRecommendedQuestObjectives();
+		log.info("Printing All Data");
+		playerDataManager.printData();
+		log.info("Printing All Objectives");
+		objectivesManager.printAllRecommendedObjectives();
 	}
 	@Provides
 	ObjectivesConfig getConfig(ConfigManager configManager) {

@@ -74,16 +74,27 @@ public abstract class Objective implements Comparable<Objective> {
     public void addTag(ObjectiveTags type){
         types.add(type);
     }
-    public abstract boolean updateCompletedValue();
-    public boolean updateCanBeDone(){
+    public void addTag(ArrayList<ObjectiveTags> type){
+        types.addAll(type);
+    }
+
+    public void updateObjective(){
+        if(!canBeDone){
+            updateCanBeDone();
+        }
+        if(objectiveCompleted){
+            return;
+        }
+        updateCompletedValue();
+    }
+    public abstract void updateCompletedValue();
+    public void updateCanBeDone(){
         for(String requirement : requirements){
             if(!ObjectivesManager.getObjectiveFromID(requirement).objectiveCompleted){
                 canBeDone = false;
-                return false;
             }
         }
         canBeDone = true;
-        return true;
     }
 
     public boolean getObjectiveCompleted(){
@@ -112,7 +123,7 @@ public abstract class Objective implements Comparable<Objective> {
         return "Objective{" +
                 ", ID='" + ID + '\'' +
                ", completionStatus=" + objectiveCompleted +
-                //", requirements=" + requirements +
+                ", requirements=" + requirements +
                 //", requiredBy=" + requiredBy +
                 ", basePriorityLevel=" + basePriorityLevel +
                 ", priorityLevel=" + priorityLevel +

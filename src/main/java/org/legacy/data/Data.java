@@ -8,5 +8,7 @@ public abstract class Data {
     @Inject
     private Client client;
     public abstract void updateValues();
+    public abstract String serializedData();
+
 
 }

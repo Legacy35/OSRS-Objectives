@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 @Singleton
 public class QuestObjectives {
-    @Inject
-    private Client client;
     public ArrayList<Objective> QuestObjectivesList;
     public ArrayList<Objective> QuestPointObjectivesList;
 

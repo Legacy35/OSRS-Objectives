@@ -8,6 +8,8 @@ public class CombatAchievementTaskModel {
     CombatAchievementTask combatAchievementTask;
     boolean completed;
 
+    BossModel boss;
+
     public CombatAchievementTaskModel(CombatAchievementTask combatAchievementTask, boolean completed){
         this.combatAchievementTask = combatAchievementTask;
         name= unformatName(getFormattedName());

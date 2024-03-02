@@ -28,6 +28,16 @@ public class SkillData extends Data{
         }
         playerCmbLvl =client.getLocalPlayer().getCombatLevel();
     }
+
+    @Override
+    public String serializedData() {
+        StringBuilder result= new StringBuilder("Skill Data{\nCMB Lvl: "+playerCmbLvl+"\n");
+        for(SkillModel skill : playerSkills){
+            result.append(skill).append("\n");
+        }
+        return result.append("\n}").toString();
+    }
+
     public static SkillModel getSkill(Skill targetSkill){
         for (SkillModel skill :playerSkills){
             if(skill.getSkill()==targetSkill){
@@ -36,13 +46,5 @@ public class SkillData extends Data{
         }
         log.error("SkillData.getSkill() got "+targetSkill);
         return null;
-    }
-    @Override
-    public String toString() {
-        String result= "SkillData{ playerSkills=";
-        for(SkillModel temp :playerSkills){
-            result += ",\n " +temp;
-        }
-        return result+ "\n}";
     }
 }
