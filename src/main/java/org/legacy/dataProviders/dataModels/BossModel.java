@@ -1,4 +1,4 @@
-package org.legacy.models;
+package org.legacy.dataProviders.dataModels;
 
 import lombok.Getter;
 import lombok.Setter;

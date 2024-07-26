@@ -1,8 +1,8 @@
-package org.legacy.data;
+package org.legacy.dataProviders;
 
 import net.runelite.client.config.ConfigManager;
 import org.legacy.core.ObjectivesPlugin;
-import org.legacy.models.BossModel;
+import org.legacy.dataProviders.dataModels.BossModel;
 import org.legacy.utils.Boss;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.HashMap;
 
-public class BossData extends Data{
+public class BossDataProvider extends DataProvider {
     @Inject
     private ConfigManager configManager;
     private static HashMap<Boss, BossModel> bossMap = new HashMap<>();
@@ -21,7 +21,6 @@ public class BossData extends Data{
             if (!bossMap.containsKey(boss)){
                 bossMap.put(boss,new BossModel(boss));
             }
-            log.info(boss.getUnformattedName()+" : "+ boss.name());
             if(boss.isHasKC()){
                 int kc;
                 try {
@@ -29,7 +28,6 @@ public class BossData extends Data{
                 }catch(Exception e){
                     kc = 0;
                 }
-                log.info("kc: "+kc);
                 bossMap.get(boss).setKillCount(kc);
             }
             double pb;
@@ -38,9 +36,7 @@ public class BossData extends Data{
             }catch(Exception e){
                 pb = -1;
             }
-            log.info("pb: "+pb);
             bossMap.get(boss).setPersonalBest(pb);
-
         }
     }
 
@@ -50,7 +46,7 @@ public class BossData extends Data{
         for(BossModel boss:bossMap.values()){
             result.append(boss).append("\n");
         }
-        return result.append("\n}").toString();
+        return result.append("}").toString();
     }
 
     public static BossModel getBossData(Boss boss){

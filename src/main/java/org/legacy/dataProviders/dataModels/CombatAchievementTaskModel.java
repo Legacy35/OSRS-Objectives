@@ -1,4 +1,4 @@
-package org.legacy.models;
+package org.legacy.dataProviders.dataModels;
 
 import org.legacy.utils.Difficulty;
 import org.legacy.utils.CombatAchievementTask;

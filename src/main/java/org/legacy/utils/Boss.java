@@ -13,6 +13,7 @@ public enum Boss {
     DAGANNOTH_PRIME,
     SARACHNIS,
     KALPHITE_QUEEN,
+    COMMANDER_ZILYANA,
     ARMADYL("Kree'arra"),
     GENERAL_GRAARDOR,
     ZAMORAK("K'ril Tsutsaroth"),
@@ -62,7 +63,7 @@ public enum Boss {
     THEATRE_OF_BLOOD_ENTRY("Theatre of Blood Entry Mode"),
     THEATRE_OF_BLOOD_HM("Theatre of Blood Hard Mode"),
     TOMBS_OF_AMASCUT,
-    TOMBS_OF_AMASCUT_ENTRY,
+    TOMBS_OF_AMASCUT_ENTRY("Tombs of Amascut Entry Mode"),
     TOMBS_OF_AMASCUT_EXPERT("Tombs of Amascut Expert Mode");
 
     String nameOverride ="";

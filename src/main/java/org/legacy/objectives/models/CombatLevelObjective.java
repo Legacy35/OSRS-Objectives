@@ -1,27 +1,26 @@
 package org.legacy.objectives.models;
 
-import net.runelite.api.Client;
-import net.runelite.api.Skill;
-import org.legacy.data.SkillData;
-import org.legacy.utils.ObjectiveTags;
+import lombok.Getter;
+import org.legacy.dataProviders.SkillDataProvider;
+import org.legacy.objectives.ObjectiveTags;
 
-public class CombatLevelObjective extends Objective {
-    int cmbLvl;
+public class CombatLevelObjective extends GenericObjective {
+    @Getter
+    private int cmbLvl;
     public CombatLevelObjective(int cmbLvl) {
-        super("Combat Level", "Combat Level", 0, "CMB-"+cmbLvl);
+        super("Combat Level", "Combat Level", 0, "CMB-"+cmbLvl,ObjectiveTags.COMBAT_SKILLING);
         this.cmbLvl= cmbLvl;
-        setHiddenObjective(true);
         addTag(ObjectiveTags.SKILLING);
-        addRequirement("SKILL-"+Skill.ATTACK.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.DEFENCE.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.HITPOINTS.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.STRENGTH.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.MAGIC.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.RANGED.getName().toUpperCase()+"-"+(cmbLvl*21/28));
-        addRequirement("SKILL-"+Skill.PRAYER.getName().toUpperCase()+"-"+(cmbLvl*21/28));
+        addTag(ObjectiveTags.COMBAT_LEVELS);
+       if (cmbLvl > 4) {
+            addRequirement("CMB-"+(cmbLvl-1));
+        }
+        if (cmbLvl==126){
+            setPriorityLevel(1);
+        }
     }
     @Override
     public void updateCompletedValue() {
-        setObjectiveCompleted(cmbLvl<= SkillData.playerCmbLvl);
+        setObjectiveCompleted(cmbLvl<= SkillDataProvider.playerCmbLvl);
     }
 }

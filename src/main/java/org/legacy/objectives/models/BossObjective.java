@@ -1,8 +1,8 @@
 package org.legacy.objectives.models;
 
-import org.legacy.data.BossData;
+import org.legacy.dataProviders.BossDataProvider;
 import org.legacy.utils.Boss;
-import org.legacy.utils.ObjectiveTags;
+import org.legacy.objectives.ObjectiveTags;
 
 public class BossObjective extends Objective {
     Boss boss;
@@ -16,6 +16,6 @@ public class BossObjective extends Objective {
 
     @Override
     public void updateCompletedValue() {
-        setObjectiveCompleted(BossData.getBossData(boss).getKillCount()>=kc);
+        setObjectiveCompleted(BossDataProvider.getBossData(boss).getKillCount()>=kc);
     }
 }

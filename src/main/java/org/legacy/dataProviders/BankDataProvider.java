@@ -1,4 +1,4 @@
-package org.legacy.data;
+package org.legacy.dataProviders;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,14 +8,13 @@ import org.legacy.core.ObjectivesConfig;
 import org.legacy.core.ObjectivesPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.legacy.data.Data;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class BankData extends Data{
+public class BankDataProvider extends DataProvider {
     @Inject
     private ItemManager itemManager;
     @Inject
@@ -23,19 +22,19 @@ public class BankData extends Data{
     @Inject
     private ObjectivesConfig config;
     @Getter @Setter
-    private long totalValue;
+    private static long totalValue;
     @Getter
-    private long bankValue;
+    private static long bankValue;
     @Getter
-    private long equipmentValue;
+    private static long equipmentValue;
     @Getter
-    private long InventoryValue;
+    private static long InventoryValue;
     @Getter
-    private long seedVault;
+    private static long seedVault;
     @Getter
-    private long groupStorage;
+    private static long groupStorage;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
-    public BankData() {
+    public BankDataProvider() {
     }
     public void resetValues(){
         totalValue = 0;
@@ -95,10 +94,10 @@ public class BankData extends Data{
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof org.legacy.data.BankData)) {
+        } else if (!(o instanceof BankDataProvider)) {
             return false;
         } else {
-            org.legacy.data.BankData other = (org.legacy.data.BankData)o;
+            BankDataProvider other = (BankDataProvider)o;
             return this.getTotalValue() == other.getTotalValue();
         }
     }

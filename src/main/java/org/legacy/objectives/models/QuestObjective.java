@@ -1,11 +1,10 @@
 package org.legacy.objectives.models;
 
-import net.runelite.api.Client;
 import net.runelite.api.Quest;
 import net.runelite.api.QuestState;
-import org.legacy.models.QuestModel;
-import org.legacy.data.QuestData;
-import org.legacy.utils.ObjectiveTags;
+import org.legacy.dataProviders.dataModels.QuestModel;
+import org.legacy.dataProviders.QuestDataProvider;
+import org.legacy.objectives.ObjectiveTags;
 
 public class QuestObjective extends Objective{
 
@@ -13,7 +12,7 @@ public class QuestObjective extends Objective{
     public QuestObjective(Quest quest){
         super("Temp", "temp", 1, "temp");
         this.quest=quest;
-        QuestModel temp = QuestData.getQuestModel(quest);
+        QuestModel temp = QuestDataProvider.getQuestModel(quest);
         setTitle("Complete the "+temp.getName());
         setDescription("The guide to complete "+temp.getName()+ " can be found at " + temp.getWikiUrl());
         setID("QUEST-"+temp.getFormattedQuestName());
@@ -23,7 +22,7 @@ public class QuestObjective extends Objective{
 
     @Override
     public void updateCompletedValue() {
-        if(QuestData.getQuestModel(quest).getQuestState()== QuestState.FINISHED){
+        if(QuestDataProvider.getQuestModel(quest).getQuestState()== QuestState.FINISHED){
             setObjectiveCompleted(true);
             return;
         }

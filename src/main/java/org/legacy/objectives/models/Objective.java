@@ -2,15 +2,14 @@ package org.legacy.objectives.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.Client;
 import org.legacy.core.ObjectivesManager;
-import org.legacy.utils.ObjectiveTags;
+import org.legacy.objectives.ObjectiveTags;
 
 import java.util.ArrayList;
 
 public abstract class Objective implements Comparable<Objective> {
     @Getter
-    ArrayList<ObjectiveTags> types ;
+    ArrayList<ObjectiveTags> tags;
     @Getter@Setter
     private int selfContainedPriorityLevel;
     @Getter
@@ -22,21 +21,21 @@ public abstract class Objective implements Comparable<Objective> {
     @Getter
     private ArrayList<String> requiredBy;
     @Getter@Setter
+    private ObjectiveTags generalizedRequiredBy; //If this objective is required it will instead be replaced with the task that has this tag with the highest priority
+    @Getter@Setter
     private String title;
     @Getter@Setter
     private String description;
-    @Getter
+    @Getter@Setter
     private String reccomendationAFK;
-    @Getter
+    @Getter@Setter
     private String reccomendationProfit;
-    @Getter
+    @Getter@Setter
     private String reccomendationEfficient;
     @Setter
     private boolean objectiveCompleted;
     @Getter @Setter
     private boolean canBeDone;
-    @Getter@Setter
-    private boolean HiddenObjective;
     @Getter@Setter
     private String ID;
     @Getter@Setter
@@ -49,11 +48,10 @@ public abstract class Objective implements Comparable<Objective> {
         this.basePriorityLevel = priorityLevel;
         this.priorityLevel = priorityLevel;
         this.hasBeenSorted = false;
-        requirements = new ArrayList<String>();
-        requiredBy = new ArrayList<String>();
-        types = new ArrayList<ObjectiveTags>();
+        requirements = new ArrayList<>();
+        requiredBy = new ArrayList<>();
+        tags = new ArrayList<>();
         this.ID = ID;
-        HiddenObjective=false;
         updateCanBeDone();
     }
     public void addRequirement(String req){
@@ -62,20 +60,26 @@ public abstract class Objective implements Comparable<Objective> {
         }
         requirements.add(req);
     }
+    public boolean isGeneralizedObjective(){
+        return generalizedRequiredBy != null;
+    }
+    public void addRequirements(ArrayList<String> reqs){
+        if (reqs==null || reqs.isEmpty()){
+            return;
+        }
+        requirements.addAll(reqs);
+    }
     public void addRequiredBy(String req){
         if (req==null){
             return;
         }
         requiredBy.add(req);
     }
-    public void clearRequirememnts(){
-        requirements.clear();
-    }
     public void addTag(ObjectiveTags type){
-        types.add(type);
+        tags.add(type);
     }
-    public void addTag(ArrayList<ObjectiveTags> type){
-        types.addAll(type);
+    public void addTags(ArrayList<ObjectiveTags> type){
+        tags.addAll(type);
     }
 
     public void updateObjective(){
@@ -96,7 +100,6 @@ public abstract class Objective implements Comparable<Objective> {
         }
         canBeDone = true;
     }
-
     public boolean getObjectiveCompleted(){
         return objectiveCompleted;
     }

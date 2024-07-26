@@ -1,12 +1,12 @@
 package org.legacy.utils;
 
 public enum Difficulty {
-    Easy(1),
-    Medium(2),
-    Hard(3),
-    Elite(4),
-    Master(5),
-    GrandMaster(6);
+    EASY(1),
+    MEDIUM(2),
+    HARD(3),
+    ELITE(4),
+    MASTER(5),
+    GRANDMASTER(6);
 
     private final int level;
 

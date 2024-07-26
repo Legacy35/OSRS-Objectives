@@ -65,7 +65,7 @@ public class ObjectivesPlugin extends Plugin
 	public void onGameTick(GameTick J){
 		if(!playerDataManager.isIntializationStarted()) {
 			playerDataManager.initialize();
-			playerDataManager.printData();
+			//playerDataManager.printData();
 		}
 		else if(!playerDataManager.isIntialized()){
 		}
@@ -74,16 +74,19 @@ public class ObjectivesPlugin extends Plugin
 			ObjectivesThread.setName("Objectives Thread");
 			ObjectivesThread.start();
 		}
+		if(playerDataManager.isIntializationStarted()){
+			playerDataManager.updateValues();
+		}
 		if(!once) {
-			VarInspector test = new VarInspector(client,clientThread,eventBus);
+			//VarInspector test = new VarInspector(client,clientThread,eventBus);
 			once=true;
-			test.open();
+			//test.open();
 			//InfoPanel infoPanel = new InfoPanel ();
 		}
 	}
 	public void test(){
-		log.info("Printing All Data");
-		playerDataManager.printData();
+		//log.info("Printing All Data");
+		//playerDataManager.printData();
 		log.info("Printing All Objectives");
 		objectivesManager.printAllRecommendedObjectives();
 	}

@@ -1,8 +1,6 @@
-package org.legacy.models;
+package org.legacy.dataProviders.dataModels;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import net.runelite.api.Client;
 import net.runelite.api.Quest;
 import net.runelite.api.QuestState;

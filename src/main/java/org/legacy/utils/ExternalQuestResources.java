@@ -282,7 +282,7 @@ public enum ExternalQuestResources
 	MA2_LOCATOR("https://oldschool.runescape.wiki/w/The_Mage_Arena_II"),
 	DAG_ROUTE("https://oldschool.runescape.wiki/w/Waterbirth_Island");
 
-
+	//TODO ON UPDATE:IF NEW QUEST Needs to added above needs to be added here
 
 	// Constructor to associate URLs with enum values
 	private final String wikiURL;

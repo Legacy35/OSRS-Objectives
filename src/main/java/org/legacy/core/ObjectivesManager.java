@@ -2,14 +2,10 @@ package org.legacy.core;
 
 import lombok.Getter;
 import net.runelite.api.Client;
-import org.legacy.objectives.BossObjectives;
-import org.legacy.objectives.QuestObjectives;
-import org.legacy.objectives.SkillObjectives;
-import org.legacy.objectives.models.BossObjective;
-import org.legacy.objectives.models.Objective;
-import org.legacy.objectives.models.QuestObjective;
-import org.legacy.objectives.models.SkillObjective;
-import org.legacy.utils.ObjectiveTags;
+import net.runelite.api.Skill;
+import org.legacy.objectives.*;
+import org.legacy.objectives.models.*;
+import org.legacy.utils.RecommendedObjectiveList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,20 +20,30 @@ public class ObjectivesManager implements Runnable{
     @Inject
     private Client client;
     @Inject
-    private SkillObjectives skillObjectives;
+    private SkillObjectivesProvider skillObjectives;
     @Inject
-    private QuestObjectives questObjectives;
+    private QuestObjectivesProvider questObjectives;
     @Inject
-    private BossObjectives bossObjectives;
+    private BossObjectivesProvider bossObjectives;
+    @Inject
+    private ItemObjectivesProvider itemObjectives;
+    @Inject
+    private MusicObjectivesProvider musicObjectives;
     @Getter
     private boolean isIntialized;
     @Getter
     private boolean intializationStarted;
-    private static final int objectiveListCount =5;
+    private static final int objectiveListCount =7; //TODO UPDATE: New Objectives need Generates added here need this value incremented for every new list
+    private static final int recommendedObjectiveListCounts =4; //TODO UPDATE: New Objectives that are shown need this value incremented for every new list
+
+    private static HashMap<ObjectiveTags,Objective> generalizedObjectiveReplacements= new HashMap<>();
+    private static HashMap<String,Integer> objectiveListMap= new HashMap<>();
     // 0-> Skills , 1->Cmb Lvl, 2-> Quest, 3-> Quest Point
-    private static ArrayList<Objective>[] Objectives = new ArrayList[objectiveListCount+1];
+    private static final ArrayList<Objective>[] objectives = new ArrayList[objectiveListCount+1];
+    private static final RecommendedObjectiveList[] shownReccommendedObjectives = new  RecommendedObjectiveList[recommendedObjectiveListCounts+1];// The +1 is for the Non-Shown Obectives Aka Generalized ones
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
-    private boolean debug = true;
+    private final boolean debugDoNotRemoveCompleted = true; //Does not remove
+    private final boolean debugPrintFullList = true;
     public ObjectivesManager(){
         intializationStarted=false;
         isIntialized=false;
@@ -52,7 +58,7 @@ public class ObjectivesManager implements Runnable{
         }
         log.info("----Initializing Objectives----");
         initializeObjectives();
-        Objectives[objectiveListCount]= new ArrayList<Objective>();
+        objectives[objectiveListCount]= new ArrayList<>();
         intializationStarted=true;
         log.info("----Generating Objectives----");
         generateObjectives();//medium O(n)
@@ -63,50 +69,65 @@ public class ObjectivesManager implements Runnable{
         log.info("----Combining Objectives Lists----");
         combineObjectivesList();//Light o(1)
         log.info("----Removing Completed Objectives----");
-        if(!debug){
+        if(!debugDoNotRemoveCompleted){
             removeCompletedObjectives();//Light O(n)
         }
         log.info("----Sorting Objectives List by amount of things that require it----");
         sortByRequiredByCount();//medium-Light o(nlog(N)) //This is so that when we topological sort we start at the head of every relationship tree
         log.info("----Topologically sorting combined objectives Lists----");
-        Objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(Objectives[objectiveListCount]); //Heavy approx O(N)
+        objectives[objectiveListCount] = topologicallySortCombinedObjectiveList(objectives[objectiveListCount]); //Heavy approx O(N)
         log.info("----Assigning Priority Levels to Objectives----");
         prioritizeObjectives(); //Medium-Light //
         log.info("----Delete Unnecessary/Hidden Objectives----");
-        removeHiddenObjectives(); //light
         remove0PriorityObjectives();//light
         removeUncompletableObjectives();//light
         log.info("----Sorting Objectives by Priority----");
         sortObjectivesListByPriority(); //Medium-Light
+        log.info("----Initialize Recommended Objectives Lists----");
+        initializeRecommendedObjectives();
+        log.info("----Create Recommended Objectives Lists----");
+        generateRecommendedObjectives();
+        log.info("----Initialize Recommended Objectives Replacement Map----");
+        initializeGeneralizedObjectiveReplacements();
+        log.info("----Populate Recommended Objectives Replacement Map----");
+        updateRecommendedObjectivesMap();
         isIntialized=true;
 
     }
+
     private void initializeObjectives(){
         skillObjectives.initialize();
+
         questObjectives.initialize();
+
         /*
         achivementObjectives.initialize();
         /*
         combatAchivementObjectives.initialize();
-        /*
+        */
         musicObjectives.initialize();
         itemObjectives.initialize();
-        */
+
         bossObjectives.initialize();
         /*
         clogObjectives.initialize();
         recurringObjectives.initialize();
          */
-        /**/
+        //TODO UPDATE: New Objectives need inits added here
     }
     private void generateObjectives(){
+        //TODO UPDATE: New Objectives need Generates added here as well as the map of the first part of their ID to the list
         skillObjectives.generateObjectives();
-        Objectives[0]= skillObjectives.skillingObjectivesList;
-        Objectives[1]= skillObjectives.CombatLevelObjectivesList; //hidden
+        objectiveListMap.put("SKILL",0);
+        objectives[objectiveListMap.get("SKILL")]= skillObjectives.skillingObjectivesList;
+        objectiveListMap.put("CMB",1);
+        objectives[objectiveListMap.get("CMB")]= skillObjectives.CombatLevelObjectivesList; //Generic
 
         questObjectives.generateObjectives();
-        Objectives[2]= questObjectives.QuestObjectivesList;
-        Objectives[3]= questObjectives.QuestPointObjectivesList; //hidden
+        objectiveListMap.put("QUEST",2);
+        objectives[objectiveListMap.get("QUEST")]= questObjectives.QuestObjectivesList;
+        objectiveListMap.put("QP",3);
+        objectives[objectiveListMap.get("QP")]= questObjectives.QuestPointObjectivesList; //Generic
         /*
         achivementObjectives.generateObjectives();
         Objectives[4]= achivementObjectives.achievementTaskObjectiveList;//partially hidden (KC will instead be a boss Kc objective req and it will be hidden)
@@ -115,17 +136,23 @@ public class ObjectivesManager implements Runnable{
         combatAchivementObjectives.generateObjectives();
         Objectives[6]= combatAchivementObjectives.combatAchievementTaskObjectivesList;
         Objectives[7]= combatAchivementObjectives.combatAchievementTierObjectivesList;//hidden
-        /*
+        */
         musicObjectives.generateObjectives();
-        Objectives[8]= musicObjectives.musicObjectivesList; // ???
+        objectiveListMap.put("MUSIC",4);
+        objectives[objectiveListMap.get("MUSIC")]= new ArrayList<>(musicObjectives.MusicObjectiveMap.values());
 
         itemObjectives.generateObjectives();
-        Objectives[9]= itemObjectives.wealthObjectivesList; // ???
+        objectiveListMap.put("WEALTH",5);
+        objectives[objectiveListMap.get("WEALTH")]= itemObjectives.WealthObjectivesList; //Generic
+
+        /*
         Objectives[10]= itemObjectives.itemObjectivesList; // ???
         Objectives[11]= itemObjectives.petObjectivesList; // hidden and redirects to boss KC
         */
+
         bossObjectives.generateObjectives();
-        Objectives[4/*12*/]= bossObjectives.bossObjectivesList; // ???
+        objectiveListMap.put("BOSS_KC",6);
+        objectives[objectiveListMap.get("BOSS_KC")]= bossObjectives.bossObjectivesList;
         /*
         clogObjectives.generateObjectives();
         Objectives[13]= clogObjectives.clogObjectivesList; // ???
@@ -154,81 +181,191 @@ public class ObjectivesManager implements Runnable{
         for (String requirementString : objective.getRequirements()) {
             Objective requirement = getObjectiveFromID(requirementString);
             assert requirement != null;
-            if (!requirement.isHasBeenSorted() && (!requirement.getObjectiveCompleted()|| debug)) {
+            if (!requirement.isHasBeenSorted() && (!requirement.getObjectiveCompleted()|| debugDoNotRemoveCompleted)) {
                 dfs(requirement, result);
             }
         }
         result.add(objective);
     }
-
     //creates the last value in the Objectives list which is just a combination of all the objective lists
     public void combineObjectivesList(){
-        Objectives[objectiveListCount]= new ArrayList<Objective>();
+        objectives[objectiveListCount]= new ArrayList<Objective>();
         for(int i =0; i<objectiveListCount;i++) {
-            Objectives[objectiveListCount].addAll(Objectives[i]);
+            objectives[objectiveListCount].addAll(objectives[i]);
         }
     }
-
     //Assigns Required By values to all Objectives
     private void assignRequiredByValues(){
         for(int i =0; i<objectiveListCount;i++) {
-            for (Objective objective : Objectives[i]) {
+            for (Objective objective : objectives[i]) {
                 for (String objectiveCode : objective.getRequirements()) {
                     Objects.requireNonNull(getObjectiveFromID(objectiveCode)).addRequiredBy(objective.getID());
                 }
             }
         }
     }
-
     //Update values of all the completion statuses
     public void updateAllCompletionStatuses() {
-        for(ArrayList<Objective> obj :Objectives){
+        for(ArrayList<Objective> obj : objectives){
             updateCompletionStatusesOfAListOfObjectives(obj);
         }
     }
-
     //helper function for updating all the completion statuses
     private void updateCompletionStatusesOfAListOfObjectives(ArrayList<Objective> givenObjectives) {
         for(Objective obj : givenObjectives){
-            obj.updateCompletedValue();
-            obj.updateCanBeDone();
+            obj.updateObjective();
         }
     }
-
     //Go through all the objectives and trickle down the priority to their subsequent objectives
     private void prioritizeObjectives (){
-        for(int i = Objectives[objectiveListCount].size()-1; i>=0;i--){
-            for(String requirement: Objectives[objectiveListCount].get(i).getRequirements()){
-                ObjectivesManager.getObjectiveFromID(requirement).addToPriority(Objectives[objectiveListCount].get(i).getPriorityLevel());
+        for(int i = objectives[objectiveListCount].size()-1; i>=0; i--){
+            for(String requirement: objectives[objectiveListCount].get(i).getRequirements()){
+                ObjectivesManager.getObjectiveFromID(requirement).addToPriority(objectives[objectiveListCount].get(i).getPriorityLevel());
             }
-            Objectives[objectiveListCount].get(i).addToPriority( Objectives[objectiveListCount].get(i).getSelfContainedPriorityLevel());
+            objectives[objectiveListCount].get(i).addToPriority( objectives[objectiveListCount].get(i).getSelfContainedPriorityLevel());
         }
         applyPriorityRatios();
     }
-
     //sets the Ratios for priorities that change priority based on player config settings
     private void applyPriorityRatios() {
     }
-
     private void removeCompletedObjectives(){
-        for(int i = 0; i < Objectives[objectiveListCount].size();i++) {
-            if(Objectives[objectiveListCount].get(i).getObjectiveCompleted()){
-                Objectives[objectiveListCount].remove(i);
+        for(int i = 0; i < objectives[objectiveListCount].size(); i++) {
+            if(objectives[objectiveListCount].get(i).getObjectiveCompleted()){
+                objectives[objectiveListCount].remove(i);
                 i--;
             }
         }
     }
-    private void removeHiddenObjectives(){
-        ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
-        for(int i = 0; i < objectivesList.size();i++) {
-            if(objectivesList.get(i).isHiddenObjective()){
-                objectivesList.remove(i);
-                i--;
+    private Objective getReccommendedObjective(ObjectiveTags tag){
+        return generalizedObjectiveReplacements.get(tag);
+    }
+    private void initializeRecommendedObjectives() {
+        for(int i = 0; i<shownReccommendedObjectives.length;i++){
+            shownReccommendedObjectives[i]= new RecommendedObjectiveList();
+        }
+    }
+    private void generateRecommendedObjectives() {
+        ArrayList<Objective> recommendedQuestingObjectives = new ArrayList<>();
+        ArrayList<Objective> recommendedSkillingObjectives = new ArrayList<>();
+        ArrayList<Objective> recommendedBossObjectives = new ArrayList<>();
+        ArrayList<Objective> recommendedMusicObjectives = new ArrayList<>();
+        ArrayList<Objective> recommendedGeneralizedObjectives = new ArrayList<>();
+        boolean[] skillCompletedList = new boolean[Skill.values().length];
+
+        SkillObjective storedSkillingObjective = null;
+        CombatLevelObjective storedCMBObjective = null;
+        QuestPointObjective storedQPObjective = null;
+        WealthObjective wealthObjective = null;
+        for(int i = 0; i< objectives[objectiveListCount].size(); i++){
+
+            //Creates Generalized Objectives List
+            if(objectives[objectiveListCount].get(i).isGeneralizedObjective()){
+                Objective storedObjective = objectives[objectiveListCount].get(i);
+                if( objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.COMBAT_LEVELS)){
+                    if(storedCMBObjective==null) {
+                        storedCMBObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    else if(storedCMBObjective.getCmbLvl()<((CombatLevelObjective) objectives[objectiveListCount].get(i)).getCmbLvl()){
+                        storedCMBObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    continue;
+                }
+                else if(storedCMBObjective!=null) {
+                    recommendedGeneralizedObjectives.add(storedCMBObjective);
+                    storedCMBObjective=null;
+                }/*
+                if( objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.QUESTING)){
+                    if(storedQPObjective==null) {
+                        storedQPObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    else if(storedQPObjective.getCmbLvl()<((CombatLevelObjective) objectives[objectiveListCount].get(i)).getCmbLvl()){
+                        storedQPObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    continue;
+                }
+                else if(storedQPObjective!=null) {
+                    recommendedGeneralizedObjectives.add(storedQPObjective);
+                    storedQPObjective=null;
+                }
+                if( objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.WEALTH)){
+                    if(wealthObjective==null) {
+                        wealthObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    else if(wealthObjective.getCmbLvl()<((CombatLevelObjective) objectives[objectiveListCount].get(i)).getCmbLvl()){
+                        wealthObjective = (CombatLevelObjective) objectives[objectiveListCount].get(i);
+                    }
+                    continue;
+                }
+                else if(storedQPObjective!=null) {
+                    recommendedGeneralizedObjectives.add(storedQPObjective);
+                    storedQPObjective=null;
+                }*/
+
+                recommendedGeneralizedObjectives.add(storedObjective);
+            }
+            //Questing List
+            else if(objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.QUESTING)){
+                Objective storedObjective = objectives[objectiveListCount].get(i);
+                if(storedObjective.isCanBeDone()){
+                    recommendedQuestingObjectives.add(storedObjective);
+                }
+            }
+            //Creates Skilling List
+            else if(objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.SKILLING)){
+                //Checks if we already have a goal for that skill
+                if(skillCompletedList[((SkillObjective)objectives[objectiveListCount].get(i)).getSkill().ordinal()]){
+                    continue;
+                }
+                if(storedSkillingObjective==null) {
+                    storedSkillingObjective = (SkillObjective) objectives[objectiveListCount].get(i);
+                }
+                else if(storedSkillingObjective.getSkill()==((SkillObjective) objectives[objectiveListCount].get(i)).getSkill()){
+                    storedSkillingObjective = (SkillObjective) objectives[objectiveListCount].get(i);
+                }
+                else{
+                    recommendedSkillingObjectives.add(storedSkillingObjective);
+                    skillCompletedList[((SkillObjective)objectives[objectiveListCount].get(i)).getSkill().ordinal()]= true;
+                    storedSkillingObjective = (SkillObjective) objectives[objectiveListCount].get(i);
+                }
+            }
+            //Creates Bossing List
+            else if(objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.BOSSING)){
+                Objective storedObjective = objectives[objectiveListCount].get(i);
+                if(storedObjective.isCanBeDone()){
+                    recommendedBossObjectives.add(storedObjective);
+                }
+            }
+            //Creates Music List
+            else if(objectives[objectiveListCount].get(i).getTags().contains(ObjectiveTags.MUSIC)){
+                Objective storedObjective = objectives[objectiveListCount].get(i);
+                if(storedObjective.isCanBeDone()){
+                    recommendedMusicObjectives.add(storedObjective);
+                }
+            }
+        }
+        if(storedCMBObjective!=null) {
+            recommendedGeneralizedObjectives.add(storedCMBObjective);
+        }
+        shownReccommendedObjectives[0].setObjectiveList(recommendedSkillingObjectives);
+        shownReccommendedObjectives[1].setObjectiveList(recommendedQuestingObjectives);
+        shownReccommendedObjectives[2].setObjectiveList(recommendedBossObjectives);
+        shownReccommendedObjectives[3].setObjectiveList(recommendedMusicObjectives);
+        shownReccommendedObjectives[recommendedObjectiveListCounts].setObjectiveList(recommendedGeneralizedObjectives);
+
+    }
+    public void printRecommendedGeneralizedObjectives () {
+        ArrayList<Objective> list = shownReccommendedObjectives[recommendedObjectiveListCounts].getObjectiveList();
+        log.info("-----Printing Recommended Generalized Objectives("+list.size()+")-----");
+        for ( Objective obj : list){
+            log.info(obj.toString());
+            if(!debugPrintFullList){
+                return;
             }
         }
     }
     private void remove0PriorityObjectives(){
-        ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
+        ArrayList<Objective> objectivesList = objectives[objectiveListCount];
         for(int i = 0; i < objectivesList.size();i++) {
             if(objectivesList.get(i).getPriorityLevel()==0){
                 objectivesList.remove(i);
@@ -237,7 +374,7 @@ public class ObjectivesManager implements Runnable{
         }
     }
     private void removeUncompletableObjectives(){
-        ArrayList<Objective> objectivesList = Objectives[objectiveListCount];
+        ArrayList<Objective> objectivesList = objectives[objectiveListCount];
         for(int i = 0; i < objectivesList.size();i++) {
             if(!objectivesList.get(i).isCanBeDone()){
                 objectivesList.remove(i);
@@ -245,105 +382,43 @@ public class ObjectivesManager implements Runnable{
             }
         }
     }
-    private void cleanUpObjectives(){
-
-    }
-
     private void sortByRequiredByCount(){
-        Objectives[objectiveListCount].sort(Comparator.comparingInt(obj -> obj.getRequiredBy().size()));
-
+        objectives[objectiveListCount].sort(Comparator.comparingInt(obj -> obj.getRequiredBy().size()));
     }
     private void sortObjectivesListByPriority(){
-        Collections.sort(Objectives[objectiveListCount]);
+        Collections.sort(objectives[objectiveListCount]);
     }
-
-    private void resetObjectivePriorities (){
-
-    }
-    private void sortObjectivesByPriority (){
-
-    }
-    public void printRecommendedQuestObjectives () {
-        ArrayList<QuestObjective> list = getRecommendedQuestObjectives();
-        log.info("-----Printing Recommended Quest Objectives("+list.size()+")-----");
-        for ( QuestObjective obj : list){
-            log.info(obj.toString());
+    private void initializeGeneralizedObjectiveReplacements(){
+        for(ObjectiveTags tag: ObjectiveTags.values()) {
+            generalizedObjectiveReplacements.put(tag,null);
         }
     }
-    public void printRecommendedSkillingObjectives () {
-        ArrayList<SkillObjective> list = getRecommendedSkillingObjectives();
-        log.info("-----Printing Recommended Skilling Objectives("+list.size()+")-----");
-        for ( SkillObjective obj : list){
-            log.info(obj.toString());
+    private void updateRecommendedObjectivesMap() {
+        for(ObjectiveTags tag: ObjectiveTags.values()){
+            Objective bestOption = null;
+            for(int i =0; i<shownReccommendedObjectives.length-1;i++){
+                Objective temp = shownReccommendedObjectives[i].getReccommendedObjective(tag);
+                if(temp==null){
+                    continue;
+                }
+                if(bestOption==null){
+                    bestOption= temp;
+                }
+                else if(temp.getPriorityLevel()>bestOption.getPriorityLevel()){
+                    bestOption=temp;
+                }
+            }
+            generalizedObjectiveReplacements.put(tag,bestOption);
         }
     }
-    public ArrayList<QuestObjective> getRecommendedQuestObjectives(){
-        ArrayList<QuestObjective> recommendedSkillingObjectives = new ArrayList<QuestObjective>();
-        for(int i=0; i<Objectives[objectiveListCount].size(); i++){
-            if(!Objectives[objectiveListCount].get(i).getTypes().contains(ObjectiveTags.QUESTING)){
-                continue;
-            }
-            QuestObjective storedObjective = (QuestObjective) Objectives[objectiveListCount].get(i);
-             if(storedObjective.isCanBeDone()){
-                 recommendedSkillingObjectives.add(storedObjective);
-            }
-        }
-        return recommendedSkillingObjectives;
-    }
-    public ArrayList<SkillObjective> getRecommendedSkillingObjectives (){
-        ArrayList<SkillObjective> recommendedSkillingObjectives = new ArrayList<>();
-        SkillObjective storedObjective = null;
-        for(int i=0; i<Objectives[objectiveListCount].size(); i++){
-            if(!Objectives[objectiveListCount].get(i).getTypes().contains(ObjectiveTags.SKILLING)){
-                continue;
-            }
-            if (storedObjective==null) {
-                storedObjective = (SkillObjective) Objectives[objectiveListCount].get(i);
-            }
-            else if(storedObjective.getSkill()==((SkillObjective)Objectives[objectiveListCount].get(i)).getSkill()){
-                storedObjective = (SkillObjective) Objectives[objectiveListCount].get(i);
-            }
-            else if(storedObjective.getSkill()==((SkillObjective)Objectives[objectiveListCount].get(i)).getSkill()){
-                storedObjective = (SkillObjective) Objectives[objectiveListCount].get(i);
-            }
-            else{
-                recommendedSkillingObjectives.add(storedObjective);
-                storedObjective = (SkillObjective) Objectives[objectiveListCount].get(i);
-
-            }
-        }
-        if (storedObjective!=null) {
-            recommendedSkillingObjectives.add(storedObjective);
-        }
-        return recommendedSkillingObjectives;
-    }
-    public Objective getRecomendedObjective (){
-        return null;
-    }
-    public void updatePriorityLevelsOfAllObjectives(){
-
-    }
-
     public static Objective getObjectiveFromID(String ID){
         String[] parts = ID.split("-");
         ArrayList<Objective> objectiveList;
-        switch (parts[0]) {
-            case "SKILL":
-                objectiveList = ObjectivesManager.Objectives[0];
-                break;
-            case "CMB":
-                objectiveList = ObjectivesManager.Objectives[1];
-                break;
-            case "QUEST":
-                objectiveList = ObjectivesManager.Objectives[2];
-                break;
-            case "QP":
-                objectiveList = ObjectivesManager.Objectives[3];
-                break;
-            default:
-                log.error("ID: " + ID + " ,could not identify beginning identifier:" + parts[0]);
-                return null;
+        if(!objectiveListMap.containsKey(parts[0])) {
+            log.error("ID: " + ID + " ,could not identify beginning identifier:" + parts[0]);
+            return null;
         }
+        objectiveList = ObjectivesManager.objectives[objectiveListMap.get(parts[0])];
         return findObjectiveFromObjectiveList(objectiveList,ID);
     }
     private static Objective findObjectiveFromObjectiveList(ArrayList<Objective> objectiveList, String ID){
@@ -355,30 +430,53 @@ public class ObjectivesManager implements Runnable{
         log.error("ID: " + ID + " ,could not find ID in: " + objectiveList+" Failed to find ID: "+ ID );
         return null;
     }
-    public ArrayList<BossObjective> getRecommendedBossObjectives(){
-        ArrayList<BossObjective> recommendedBossObjectives = new ArrayList<>();
-        for(int i=0; i<Objectives[objectiveListCount].size(); i++){
-            if(!Objectives[objectiveListCount].get(i).getTypes().contains(ObjectiveTags.BOSSING)){
-                continue;
-            }
-            BossObjective storedObjective = (BossObjective) Objectives[objectiveListCount].get(i);
-            if(storedObjective.isCanBeDone()){
-                recommendedBossObjectives.add(storedObjective);
+    public void printRecommendedQuestObjectives () {
+        ArrayList<Objective> list = shownReccommendedObjectives[1].getObjectiveList();
+        log.info("-----Printing Recommended Quest Objectives("+list.size()+")-----");
+        for ( Objective obj : list){
+            log.info(obj.toString());
+            if(!debugPrintFullList){
+                return;
             }
         }
-        return recommendedBossObjectives;
+    }
+    public void printRecommendedSkillingObjectives () {
+        ArrayList<Objective> list = shownReccommendedObjectives[0].getObjectiveList();
+        log.info("-----Printing Recommended Skilling Objectives("+list.size()+")-----");
+        for ( Objective obj : list){
+            log.info(obj.toString());
+            if(!debugPrintFullList){
+                return;
+            }
+        }
     }
     private void printRecommendedBossObjectives() {
-        ArrayList<BossObjective> list = getRecommendedBossObjectives();
+        ArrayList<Objective> list = shownReccommendedObjectives[2].getObjectiveList();
         log.info("-----Printing Recommended Boss Kc Objectives ("+list.size()+")-----");
-        for ( BossObjective obj : list){
+        for ( Objective obj : list){
             log.info(obj.toString());
+            if(!debugPrintFullList){
+                return;
+            }
+        }
+    }
+    private void printRecommendedMusicObjectives() {
+        ArrayList<Objective> list = shownReccommendedObjectives[3].getObjectiveList();
+        log.info("-----Printing Recommended Music Objectives ("+list.size()+")-----");
+        for ( Objective obj : list){
+            log.info(obj.toString());
+            if(!debugPrintFullList){
+                return;
+            }
         }
     }
     public void printAllRecommendedObjectives() {
         printRecommendedSkillingObjectives();
         printRecommendedQuestObjectives();
         printRecommendedBossObjectives();
+        printRecommendedMusicObjectives();
+        printRecommendedGeneralizedObjectives();
     }
 
 }
+

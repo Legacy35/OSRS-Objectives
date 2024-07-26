@@ -1,10 +1,9 @@
-package org.legacy.data;
+package org.legacy.dataProviders;
 
 import net.runelite.api.Client;
 import org.legacy.core.ObjectivesPlugin;
-import org.legacy.models.CombatAchievementModel;
-import org.legacy.models.CombatAchievementTaskModel;
-import org.legacy.models.QuestModel;
+import org.legacy.dataProviders.dataModels.CombatAchievementTierModel;
+import org.legacy.dataProviders.dataModels.CombatAchievementTaskModel;
 import org.legacy.utils.CombatAchievementTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,15 +11,15 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
-public class CombatAchievementData extends Data{
+public class CombatAchievementDataProvider extends DataProvider {
     private String combatAchievementTaskBinary;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
 
     @Inject
     private Client client;
-    public static ArrayList<CombatAchievementTaskModel>  combatAchievementTasks = new ArrayList<CombatAchievementTaskModel>();
-    public static ArrayList<CombatAchievementModel>  combatAchievements = new ArrayList<CombatAchievementModel>();
-    public CombatAchievementData(){
+    public static ArrayList<CombatAchievementTaskModel>  combatAchievementTasks = new ArrayList<>();
+    public static ArrayList<CombatAchievementTierModel>  combatAchievements = new ArrayList<>();
+    public CombatAchievementDataProvider(){
     }
     public void updateValues() {
         updateCombatAchievementTasks();
@@ -31,9 +30,9 @@ public class CombatAchievementData extends Data{
     public String serializedData() {
         StringBuilder result= new StringBuilder("CombatAchievementData{ \n");
         for(CombatAchievementTaskModel temp :combatAchievementTasks){
-            result.append(",\n ").append(temp);
+            result.append(temp).append(",\n");
         }
-        return result+ "\n}";
+        return result.append("}").toString();
     }
 
     private void updateCombatAchievementTasks() {

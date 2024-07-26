@@ -1,25 +1,19 @@
 package org.legacy.objectives.models;
 import lombok.Getter;
-import net.runelite.api.Client;
-import net.runelite.api.VarPlayer;
-import org.legacy.core.ObjectivesPlugin;
-import org.legacy.data.QuestData;
-import org.legacy.utils.ObjectiveTags;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.legacy.dataProviders.QuestDataProvider;
+import org.legacy.objectives.ObjectiveTags;
 
 
-public class QuestPointObjective extends Objective {
-    @Getter
+@Getter
+public class QuestPointObjective extends GenericObjective {
     private final int QPReq;
     public QuestPointObjective(int QPReq){
-        super("Quest Point Requirement", "Quest Point Requirement", 0, "QP-"+QPReq);
+        super("Quest Point Requirement", "Quest Point Requirement", 0, "QP-"+QPReq,ObjectiveTags.QUESTING);
         this.QPReq=QPReq;
-        setHiddenObjective(true);
-        addTag(ObjectiveTags.QUESTING);
+        setGeneralizedRequiredBy(ObjectiveTags.QUESTING);
     }
     @Override
     public void updateCompletedValue() {
-        setObjectiveCompleted(QPReq<= QuestData.playerQP);
+        setObjectiveCompleted(QPReq<= QuestDataProvider.playerQP);
     }
 }

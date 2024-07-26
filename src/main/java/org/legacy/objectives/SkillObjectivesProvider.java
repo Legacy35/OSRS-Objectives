@@ -1,23 +1,19 @@
 package org.legacy.objectives;
 
-import net.runelite.api.Client;
 import net.runelite.api.Skill;
-import org.legacy.data.SkillData;
+import org.legacy.dataProviders.SkillDataProvider;
 import org.legacy.objectives.models.CombatLevelObjective;
 import org.legacy.objectives.models.Objective;
 import org.legacy.objectives.models.SkillObjective;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 
-public class SkillObjectives {
-    @Inject
-    private Client client;
+public class SkillObjectivesProvider extends ObjectivesProvider {
     public ArrayList<Objective> skillingObjectivesList;
     public ArrayList<Objective>CombatLevelObjectivesList;
     public void initialize(){
-        skillingObjectivesList= new ArrayList<Objective>();
-        CombatLevelObjectivesList= new ArrayList<Objective>();
+        skillingObjectivesList= new ArrayList<>();
+        CombatLevelObjectivesList= new ArrayList<>();
     }
     public void generateObjectives() {
         skillingObjectivesList.clear();
@@ -35,7 +31,7 @@ public class SkillObjectives {
 
     private void addAllSkillingObjectives() {
         for(Skill skill: Skill.values()){
-            if(SkillData.getSkill(skill)!=null) {
+            if(SkillDataProvider.getSkill(skill)!=null) {
                 addAllSkillLevelsToObjectives(skill);
             }
         }

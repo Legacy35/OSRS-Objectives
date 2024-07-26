@@ -1,17 +1,15 @@
-package org.legacy.data;
+package org.legacy.dataProviders;
 
 import net.runelite.api.Client;
 import net.runelite.api.Quest;
 import net.runelite.api.QuestState;
 import net.runelite.api.VarPlayer;
-import org.legacy.models.QuestModel;
-import org.legacy.models.SkillModel;
+import org.legacy.dataProviders.dataModels.QuestModel;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class QuestData extends Data{
+public class QuestDataProvider extends DataProvider {
     @Inject
     private Client client;
     public static int playerQP;
@@ -34,9 +32,9 @@ public class QuestData extends Data{
     public String serializedData() {
         StringBuilder result= new StringBuilder("Quest Data{\nQP: "+playerQP+"\n");
         for(QuestModel quest:questMap.values()){
-            result.append(quest).append("\n");
+            result.append(quest).append(",\n");
         }
-        return result.append("\n}").toString();
+        return result.append("}").toString();
     }
     public static QuestModel getQuestModel (Quest quest){
         return questMap.get(quest);

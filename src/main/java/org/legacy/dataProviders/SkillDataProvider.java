@@ -1,10 +1,9 @@
-package org.legacy.data;
+package org.legacy.dataProviders;
 
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import org.legacy.core.ObjectivesPlugin;
-import org.legacy.models.QuestModel;
-import org.legacy.models.SkillModel;
+import org.legacy.dataProviders.dataModels.SkillModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,13 +12,13 @@ import javax.inject.Singleton;
 import java.util.ArrayList;
 
 @Singleton
-public class SkillData extends Data{
+public class SkillDataProvider extends DataProvider {
     @Inject
     private Client client;
     private static final Logger log = LoggerFactory.getLogger(ObjectivesPlugin.class);
     private static ArrayList<SkillModel> playerSkills = new ArrayList<SkillModel>();
     public static int playerCmbLvl;
-    public SkillData(){
+    public SkillDataProvider(){
     }
     public void updateValues() {
         this.playerSkills.clear();
@@ -35,7 +34,7 @@ public class SkillData extends Data{
         for(SkillModel skill : playerSkills){
             result.append(skill).append("\n");
         }
-        return result.append("\n}").toString();
+        return result.append("}").toString();
     }
 
     public static SkillModel getSkill(Skill targetSkill){
