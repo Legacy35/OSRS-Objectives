@@ -70,7 +70,7 @@ public class QuestObjectivesProvider extends ObjectivesProvider {
 
         // Create a QuestModel object for RUNE_MYSTERIES
         questObjective = new QuestObjective(Quest.RUNE_MYSTERIES);
-        questObjective.addBasePriorityLevel(1260); //This is so high because it is not required by a lot of requests, but since it unlocks RC it is a high prio to unlock first
+        questObjective.addBasePriorityLevel(1260); //This is so high because it is not required by a lot of quests, but since it unlocks RC it is a high prio to unlock first
         questObjective.setSelfContainedPriorityLevel(totalOptimalQuestSteps--);
         QuestObjectivesList.add(questObjective);
 

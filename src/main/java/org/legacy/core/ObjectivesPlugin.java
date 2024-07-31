@@ -1,12 +1,11 @@
 package org.legacy.core;
 
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
-import javax.swing.*;
 
 import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -14,10 +13,16 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
-import net.runelite.client.plugins.info.InfoPanel;
+import net.runelite.client.task.Schedule;
+import net.runelite.client.ui.ClientToolbar;
+import net.runelite.client.ui.NavigationButton;
 import org.legacy.devTools.VarInspector;
+import org.legacy.utils.IconUtils;
+import org.legacy.view.ObjectivesPluginPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.temporal.ChronoUnit;
 
 @PluginDescriptor(
 	name = "Objectives",
@@ -42,24 +47,32 @@ public class ObjectivesPlugin extends Plugin
 	private ObjectivesManager objectivesManager;
 
 	@Inject
+	private ClientToolbar clientToolbar;
+	private NavigationButton navButton;
+	private ObjectivesPluginPanel objectivesUI;
+	EventBus objectivesEventBus;
+	@Inject
 	VarInspector test;
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		log.info("Objectives Plugin started!");
+		objectivesEventBus = new EventBus();
+		objectivesUI = new ObjectivesPluginPanel(objectivesManager);
+		navButton = NavigationButton.builder()
+				.tooltip("Objectives")
+				.icon(IconUtils.loadImage("ObjSymbol.png"))
+				.priority(9)
+				.panel(objectivesUI)
+				.build();
+
+		clientToolbar.addNavigation(navButton);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		log.info("Example stopped!");
-	}
-	@Subscribe
-	public void onItemContainerChanged(ItemContainerChanged event) {
-		//playerBankValue.updateValues();
-		if(objectivesManager.isIntialized()) {
-			test();
-		}
 	}
 	@Subscribe
 	public void onGameTick(GameTick J){
@@ -72,9 +85,11 @@ public class ObjectivesPlugin extends Plugin
 		else if(!objectivesManager.isIntializationStarted()) {
 			Thread ObjectivesThread = new Thread(objectivesManager);
 			ObjectivesThread.setName("Objectives Thread");
-			ObjectivesThread.start();
+			ObjectivesThread.start(); //Creates the Objectives, this happens once and this thread terminates once done
+			objectivesUI.passObjectiveManager(objectivesManager);
+			objectivesUI.updatePanel();
 		}
-		if(playerDataManager.isIntializationStarted()){
+		if(playerDataManager.isIntialized()){
 			playerDataManager.updateValues();
 		}
 		if(!once) {
@@ -83,6 +98,14 @@ public class ObjectivesPlugin extends Plugin
 			//test.open();
 			//InfoPanel infoPanel = new InfoPanel ();
 		}
+	}
+	@Schedule(
+			period = 5,
+			unit = ChronoUnit.SECONDS,
+			asynchronous = true
+	)
+	public void updateUIPanels (){
+		objectivesUI.updatePanel();
 	}
 	public void test(){
 		//log.info("Printing All Data");

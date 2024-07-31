@@ -92,7 +92,7 @@ public class ObjectivesManager implements Runnable{
         log.info("----Populate Recommended Objectives Replacement Map----");
         updateRecommendedObjectivesMap();
         isIntialized=true;
-
+        log.info("----Objectives Completed Initialization----");
     }
 
     private void initializeObjectives(){
@@ -476,6 +476,9 @@ public class ObjectivesManager implements Runnable{
         printRecommendedBossObjectives();
         printRecommendedMusicObjectives();
         printRecommendedGeneralizedObjectives();
+    }
+    public RecommendedObjectiveList getAReccommendedObjectiveList(int i){
+       return shownReccommendedObjectives[i];
     }
 
 }
